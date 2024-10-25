@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 
+# Auth
+
+auth-config.json
+
 # Virtual environment
 venv/
 .env/
