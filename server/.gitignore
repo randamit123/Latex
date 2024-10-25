@@ -1,0 +1,52 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+.env/
+.venv/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# Database files
+*.sqlite3
+*.db
+
+# Secrets and environment variables
+.env
+*.env
+
+# Compiled C extensions
+*.so
+
+# macOS files
+.DS_Store
+
+# Windows thumbnail database
+Thumbs.db
+
+# PyInstaller
+# Usually contains the Python interpreter and files for distribution
+/dist/
+/build/
+*.spec
+
+# Distribution packages
+*.egg-info/
+*.eggs/
+*.wheel
+pip-wheel-metadata/
+
+# Testing
+coverage/
+*.coverage
+.tox/
+.nox/
+.pytest_cache/
+htmlcov/
