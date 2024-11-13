@@ -1,10 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&family=Bodoni+Moda:wght@700&family=Montserrat:wght@300;400&family=Source+Code+Pro:wght@400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Color Variables */
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #ADC178; /* Green */
+  --secondary-color: #8bbd56; /* Hover color for button */
+  --code-blue: #0000FF; /* Blue color for LaTeX */
+
+  /* Font Variables */
+  --font-header: 'Inria Sans', sans-serif;
+  --font-main-title: 'Bodoni Moda', serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-code: 'Source Code Pro', monospace; 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,5 +29,48 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  margin: 0;
+}
+
+/* Header Font */
+.font-inria {
+  font-family: var(--font-header);
+  font-size: 28px;
+}
+
+/* Title Font */
+.font-bodoni {
+  font-family: var(--font-main-title);
+  font-size: 80px;
+  font-weight: bold;
+}
+
+/* Subtitle Font */
+.font-montserrat {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* "LaTeX Code Font */
+.font-code {
+  font-family: var(--font-code);
+  color: var(--code-blue); /* Applies the blue color */
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: var(--font-header);
+  font-size: 20px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
 }
