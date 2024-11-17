@@ -5,7 +5,7 @@ export const users = pgTable("users", {
     id: serial("id").primaryKey(),
     username: varchar("username").unique().notNull(),
     email: varchar("email").unique().notNull(),
-    password: varchar("password").notNull()
+    password: varchar("password").notNull(),
 })
 
 export const images = pgTable("images", {
@@ -13,7 +13,7 @@ export const images = pgTable("images", {
     user_id: integer("user_id").notNull().references(() => users.id),
     image_url: varchar("image_url").notNull(),
     file_type: varchar("file_type"),
-    file_size: integer("file_size")
+    file_size: integer("file_size"),
 })
 
 export const latex = pgTable("latex", {
@@ -21,3 +21,16 @@ export const latex = pgTable("latex", {
     image_id: integer("image_id").notNull().references(() => images.id),
     latex_code: text("latex_code").notNull(),
 })
+
+export const usersRelations = relations(users, ({ many }) => ({
+    images: many(images),
+    latex: many(latex),
+}))
+
+/* export const latexRelations = relations(latex, ({ one, many }) => ({
+    users: one(users, {
+        fields = , 
+        references =, 
+    }),
+    images: many(images),
+})) */

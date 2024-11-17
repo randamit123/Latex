@@ -1,4 +1,4 @@
-import { drizzle } from "drizzle-orm/neon-http"
+/* import { drizzle } from "drizzle-orm/neon-http"
 import { neon } from "@neondatabase/serverless"
 import { config } from "dotenv"
 
@@ -9,4 +9,4 @@ const latexdb = drizzle(postgresql, { logger: true })
 
 const result = await latexdb.execute('select 1')
 
-export { latexdb }
+export { latexdb } */
