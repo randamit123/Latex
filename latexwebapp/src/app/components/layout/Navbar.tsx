@@ -3,8 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
-import LoginButton from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
+import LoginButton from "../auth/LoginButton";
+import { LogoutButton } from "../auth/LogoutButton";
+import SignUpButton from "../auth/SignUpButton";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -34,7 +35,11 @@ export default function Navbar() {
             <LogoutButton />
           </>
         ) : (
-          <LoginButton />
+          <div className="flex space-x-4">
+            {/* Not Protected */}
+            <SignUpButton />
+            <LoginButton />
+          </div>
         )}
       </div>
     </nav>

@@ -1,8 +1,7 @@
-
-
-import { LogoutButton } from "../components/LogoutButton";
+import { LogoutButton } from "../components/auth/LogoutButton";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import ImageUploader from "../components/ImageUploader";
 
 export default async function Home() {
       const session = await getServerSession();
@@ -14,7 +13,7 @@ export default async function Home() {
       return (
         <div>
           <div className="flex items-center justify-center h-screen">
-            Protected
+            <ImageUploader />
           </div>
         </div>
       )
