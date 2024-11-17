@@ -1,0 +1,106 @@
+
+.info-box{
+    display: 'flex';
+    justify-content: 'center';
+    align-items: 'center'; 
+    border-radius: 15px;
+    margin-top: 230px;
+    background-color: hsl(0, 0%, 96%);
+    height: 430px;
+    width: 380px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.intro-text{
+    margin-top: 20px;
+    margin-left: 6px;
+    margin-bottom: 20px;
+    font-family: Inika;
+    font-size: 30pt;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.topRow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lowerRows{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.halfBubble{
+    width: 140px;
+    margin: 8px;
+    font-family: Inria, sans-serif;
+    border-radius: 50px;
+    height: 45px;
+    padding-left: 20px;
+    background-color: #D9D9D9;
+    border: transparent;
+}
+
+.fullBubble{
+    width: 320px;
+    margin: 8px;
+    font-family: Inria, sans-serif;
+    border-radius: 50px;
+    height: 45px;
+    padding-left: 20px;
+    background-color: #D9D9D9;
+    border: transparent;
+}
+
+.submit{
+    position: relative;
+    left: 190px;
+    bottom: 50px;
+    width: 120px;
+    height: 45px;
+    border: transparent;
+    border-radius: 40px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+    margin-left: 50px;
+   /* margin-top: 10px; */
+    color: white;
+    background-color: #ADC178;
+    font-family: Inria, sans-serif;
+    font-size: 13pt;
+}
+
+.submit:hover{
+
+    background-color: #bfd77c;
+    cursor: pointer;
+}
+
+.submit:active{
+    background-color: #c6d4a1;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.logInRedirect{
+    margin-left: 15px;
+    font-family: Inria, sans-serif;
+    font-size: 12pt;
+}
+
+.logInLink{
+    margin-left: 80px;
+    text-decoration: none;
+    font-style: bold;
+    color: rgb(0, 0, 255);
+}
+
+.logInLink:hover{
+    color: rgb(91, 91, 255);
+}
+
+.pageRedirects{
+    margin-top: 10px;
+    margin-left: 20px;
+}

@@ -1,4 +1,5 @@
-import './globals.css';
+import "./globals.css";
+import Link from "next/link";
 
 export default function LandingPage() {
   return (
@@ -7,9 +8,15 @@ export default function LandingPage() {
       <header className="bg-[#ADC178] text-black w-full flex justify-between items-center p-4">
         <div className="font-inria">PaperLeaf</div>
         <nav className="flex space-x-4 font-inria">
-          <a href="/" className="hover:underline">Home</a>
-          <a href="/help" className="hover:underline">Help</a>
-          <a href="/account" className="hover:underline">Account</a>
+          <Link href="/" className="hover:underline">
+            Home
+          </Link>
+          <Link href="/help" className="hover:underline">
+            Help
+          </Link>
+          <Link href="/account" className="hover:underline">
+            Account
+          </Link>
         </nav>
       </header>
 
@@ -18,14 +25,17 @@ export default function LandingPage() {
         <h1 className="font-bodoni mb-4">PaperLeaf</h1>
         <p className="font-montserrat mb-12 leading-relaxed">
           Converts handwritten mathematical proofs into editable
-          <span className="font-code"> LaTeX code</span>. {/* Added space within span */}
+          <span className="font-code"> LaTeX code</span>.{" "}
+          {/* Added space within span */}
           Upload your work and we’ll do the rest!
         </p>
       </main>
 
       {/* Centered Get Started Button */}
       <div className="flex justify-center w-full mt-6">
-        <button className="btn-primary">Get Started</button>
+        <Link href="/signup.js">
+          <a className="btn-primary">Get Started</a>
+        </Link>
       </div>
     </div>
   );

@@ -1,0 +1,21 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.item-box{
+  display: flex;
+  justify-content: center;
+
+}
+
+body{
+  background-color: white;
+}
+
+.nav-bar{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  color: green;
+}
