@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "drizzle-kit generate --config=src/app/db/drizzle.config.ts",
+    "db:generate": "drizzle-kit generate --config=drizzle.config.ts",
     "db:migrate": "tsx src/app/db/migrate.ts"
   },
   "dependencies": {

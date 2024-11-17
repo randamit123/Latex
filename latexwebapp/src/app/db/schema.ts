@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, integer, text } from "drizzle-orm/pg-core"
+import { pgTable, serial, varchar, integer, text, timestamp } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 
 export const users = pgTable("users", {
@@ -20,6 +20,8 @@ export const latex = pgTable("latex", {
     id: serial("id").primaryKey(),
     image_id: integer("image_id").notNull().references(() => images.id),
     latex_code: text("latex_code").notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    updated_at: timestamp("updated_at").notNull(),
 })
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -27,10 +29,7 @@ export const usersRelations = relations(users, ({ many }) => ({
     latex: many(latex),
 }))
 
-/* export const latexRelations = relations(latex, ({ one, many }) => ({
-    users: one(users, {
-        fields = , 
-        references =, 
-    }),
-    images: many(images),
-})) */
+
+export type selectUser = typeof users.$inferSelect
+export type selectLatex = typeof latex.$inferSelect
+export type selectImage = typeof images.$inferSelect
