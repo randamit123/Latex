@@ -1,8 +1,16 @@
-import './globals.css';
+import { getServerSession } from "next-auth";
+import { authConfig } from "./auth/NextAuth";
+import { redirect } from "next/navigation";
+import { GoogleSignInButton } from "./components/auth/GoogleSignInButton";
+import LoginButton from "./components/auth/LoginButton";
 import { images } from './db/schema'
 import { newImage, createImage } from './queries/insert'
 
-export default function UploadImagePage() {
+export default async function LandingPage() {
+  const session = await getServerSession(authConfig);
+
+  if (session) return redirect("/home");
+  
   function imageHandler() {
     const imageUploads = document.getElementById("image") as HTMLInputElement
     const images = imageUploads.files
@@ -18,13 +26,12 @@ export default function UploadImagePage() {
   }
 
   return (
-    <form action={imageHandler}>
-      <div>
-        <input type="image" accept=".png, .jpg, .jpeg" multiple />
+    <div>
+      <div className="flex items-center justify-center h-screen">
+        {/* action={imageHandler} */}
+        <GoogleSignInButton />
       </div>
-      <div>
-        <button type="submit" />
-      </div>
-    </form>
+      
+    </div>
   );
 }
