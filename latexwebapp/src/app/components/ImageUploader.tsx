@@ -32,31 +32,77 @@ export default function ImageUploader() {
     formData.append("image", selectedFile);
 
     try {
-      // Uncomment and configure when backend server is set up
-      // const res = await fetch("http://localhost:5001/predict", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-      // const data = await res.json();
-      const data = { result: "prediction" }; // placeholder
+        const res = await fetch("http://localhost:5001/predict", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
 
-      setResponse(data.result);
-      setImageSrc(previewSrc);
+      if (data.result) {
+        setResponse(data.result);
+        setImageSrc(previewSrc);
+        } else {
+            throw new Error("Invalid response format from the server.");
+        }
+       setImageSrc(previewSrc);
     } catch (error) {
-      console.error("Error:", error);
+        console.error("Error:", error);
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
 
   return response && imageSrc ? (
-    <div className="bg-white shadow-lg rounded-lg p-6 w-80 sm:w-96 mx-auto mt-10 text-center">
-      <img
-        src={imageSrc}
-        alt="Uploaded"
-        className="w-full h-48 object-cover rounded-lg mb-6"
-      />
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">{response}</h2>
+    <div className="bg-white shadow-lg rounded-lg p-8 w-3/4 mx-auto mt-10">
+      <div className="mb-8">
+        <img
+          src={previewSrc}
+          alt="Uploaded"
+          className="w-full h-96 object-cover rounded-lg"
+        />
+      </div>
+
+      <div className="flex flex-row gap-8">
+        <div className="relative w-1/2 border border-gray-300 rounded-lg bg-gray-100">
+          <div className="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-t-lg">
+            <span className="text-sm font-semibold text-gray-600">Editable Text</span>
+            <button
+              className="text-sm text-gray-400 hover:text-gray-600"
+              onClick={() => navigator.clipboard.writeText(response || "")}
+              title="Copy to clipboard"
+            >
+              Copy Text
+            </button>
+          </div>
+
+          <textarea
+            className="w-full h-40 border-0 p-3 bg-white rounded-b-lg focus:ring-0 focus:outline-none"
+            value={response}
+            onChange={(e) => setResponse(e.target.value)} 
+            placeholder="Editable Latex"
+          ></textarea>
+        </div>
+
+        <div className="relative w-1/2 border border-gray-300 rounded-lg bg-gray-100">
+          <div className="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-t-lg">
+            <span className="text-sm font-semibold text-gray-600">Final Version</span>
+            <button
+              className="text-sm text-gray-400 hover:text-gray-600"
+              onClick={() => navigator.clipboard.writeText(response || "")}
+              title="Copy to clipboard"
+            >
+              Copy Text
+            </button>
+          </div>
+
+          <textarea
+            className="w-full h-40 border-0 p-3 bg-gray-100 rounded-b-lg focus:ring-0 focus:outline-none"
+            value={response} 
+            readOnly
+            placeholder="Final Latex"
+          ></textarea>
+        </div>
+      </div>
     </div>
   ) : (
     <div className="bg-white shadow-lg rounded-lg p-6 w-80 sm:w-96 mx-auto mt-10">
