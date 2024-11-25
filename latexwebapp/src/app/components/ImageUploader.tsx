@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+// import { newImage, createImage } from "../queries/insert";
+import { useSession } from "next-auth/react";
 
 export default function ImageUploader() {
+  const { data: session, status } = useSession();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -20,6 +23,28 @@ export default function ImageUploader() {
         setPreviewSrc(reader.result as string);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const imageHandler = async (imageUrl: string) => {
+    if (!session || !selectedFile) {
+      console.error("User not authenticated or no file selected.");
+      return;
+    }
+
+    // const newImg: newImage = {
+    //   user_id: 1, // TODO: update to get actual UID
+    //   user_email: session?.user?.email || "",
+    //   image_url: imageUrl,
+    //   file_size: selectedFile.size,
+    //   file_type: selectedFile.type,
+    // };
+
+    try {
+      // await createImage(newImg);
+      console.log("Image metadata saved successfully.");
+    } catch (error) {
+      console.error("Error saving image metadata:", error);
     }
   };
 
@@ -41,6 +66,8 @@ export default function ImageUploader() {
       if (data.result) {
         setResponse(data.result);
         setImageSrc(previewSrc);
+
+        await imageHandler(data.image_url);
         } else {
             throw new Error("Invalid response format from the server.");
         }
@@ -56,7 +83,7 @@ export default function ImageUploader() {
     <div className="bg-white shadow-lg rounded-lg p-8 w-3/4 mx-auto mt-10">
       <div className="mb-8">
         <img
-          src={previewSrc}
+          src={previewSrc || ""}
           alt="Uploaded"
           className="w-full h-96 object-cover rounded-lg"
         />

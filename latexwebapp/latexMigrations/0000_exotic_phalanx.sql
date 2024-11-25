@@ -1,9 +1,11 @@
 CREATE TABLE IF NOT EXISTS "images" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
+	"user_email" varchar NOT NULL,
 	"image_url" varchar NOT NULL,
 	"file_type" varchar,
-	"file_size" integer
+	"file_size" integer,
+	"uploaded_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "latex" (
@@ -18,7 +20,8 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"email" varchar NOT NULL,
 	"password" varchar NOT NULL,
 	CONSTRAINT "users_username_unique" UNIQUE("username"),
-	CONSTRAINT "users_email_unique" UNIQUE("email")
+	CONSTRAINT "users_email_unique" UNIQUE("email"),
+	"created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 --> statement-breakpoint
 DO $$ BEGIN

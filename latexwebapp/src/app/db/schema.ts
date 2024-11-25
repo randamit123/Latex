@@ -6,11 +6,13 @@ export const users = pgTable("users", {
     username: varchar("username").unique().notNull(),
     email: varchar("email").unique().notNull(),
     password: varchar("password").notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
 })
 
 export const images = pgTable("images", {
     id: serial("id").primaryKey(),
     user_id: integer("user_id").notNull().references(() => users.id),
+    user_email: varchar("user_email").notNull().references(() => users.email),
     image_url: varchar("image_url").notNull(),
     file_type: varchar("file_type"),
     file_size: integer("file_size"),

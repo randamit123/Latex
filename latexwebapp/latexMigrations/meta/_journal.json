@@ -15,6 +15,13 @@
       "when": 1731868672815,
       "tag": "0001_parched_sinister_six",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1731977264139,
+      "tag": "0002_brown_susan_delgado",
+      "breakpoints": true
     }
   ]
 }
