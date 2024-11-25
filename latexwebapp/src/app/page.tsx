@@ -10,7 +10,7 @@ export default async function LandingPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen "> {/* bg-gradient-to-b from-green-100 to-green-600 */}
         <GoogleSignInButton />
       </div>
       

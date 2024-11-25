@@ -153,7 +153,7 @@ export default function ImageUploader() {
       )}
       <button
         onClick={handleSubmit}
-        className={`bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition duration-300 ${
+        className={`bg-[#2194F2] text-white w-full py-2 rounded-lg hover:bg-white hover:text-[#2194F2] hover:outline hover:outline-1 hover:outline-[#2194F2] transition duration-300 ${
           isLoading ? "opacity-50 cursor-not-allowed" : ""
         }`}
         disabled={isLoading}
