@@ -15,7 +15,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
-          <Image src="/Logo.svg" alt="Logo" width={50} height={50} />
+          <Image src="/Logo.svg" alt="Logo" width={50} height={50} priority/>
           {/* <span className="ml-3 text-lg font-bold text-gray-800">PaperLeaf</span>*/}
         </Link>
       </div>
