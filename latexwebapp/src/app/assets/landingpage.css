@@ -4,6 +4,54 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 860px) {
+    .landing1 {
+      display: none; /* Hide the image */
+    }
+  }
+
 .title-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 150px;
     
+
+}
+
+.title-header{
+    font-size: 25pt;
+    font-weight: 600;
+    padding-bottom: 10px;
+    width: 400px;
+}
+
+.intro-explanation{
+    margin-bottom: 25px;
+    width: 500px;
+}
+
+.intro-buttons{
+    display: grid;
+    grid-template-columns: repeat(2, 160px);
+    gap: 16px;
+    
+}
+.landing1{
+    height: 250px;
+    width: 340px;
+    margin-right: 25px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.how-it-works{
+
+}
+
+.reviews-box{
+
+}
+
+.get-started-box{
+
 }
