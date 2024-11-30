@@ -2,10 +2,20 @@
 
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { newUser, createUser } from "../../queries/insert"
+import { Herr_Von_Muellerhoff } from "next/font/google";
+import { timestamp } from "drizzle-orm/mysql-core";
 
 export default function SignUpButton() {
     const handleClick = () => {
-        signIn("google");
+        // signIn("google");
+        console.log("clicked!");
+        const dummyUser: newUser = {
+            username: "hello",
+            email: "hello@aol.com",
+            password: "goodbye@23",
+        }
+        createUser(dummyUser);
     };
 
     return (

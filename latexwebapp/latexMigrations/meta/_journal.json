@@ -22,6 +22,20 @@
       "when": 1731977264139,
       "tag": "0002_brown_susan_delgado",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1733000922691,
+      "tag": "0003_cool_night_thrasher",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1733007495802,
+      "tag": "0004_secret_hammerhead",
+      "breakpoints": true
     }
   ]
 }
