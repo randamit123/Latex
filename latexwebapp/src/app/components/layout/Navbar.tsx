@@ -11,7 +11,7 @@ export default function Navbar() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className="fixed w-full h-16 shadow-lg bg-white flex items-center justify-between px-6">
+    <nav className="fixed w-full h-16 border border-grey-300 bg-white flex items-center justify-between px-6">
       {/* Logo */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
