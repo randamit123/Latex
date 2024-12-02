@@ -95,7 +95,7 @@ export default function ImageUploader() {
     }
   };
 
-  function dropHandler(e: React.DropEvent) {
+  function dropHandler(e) {
     console.log("File(s) dropped");
 
     // Prevent default behavior (Prevent file from being opened)
@@ -124,6 +124,11 @@ export default function ImageUploader() {
     setImageSrc(null);
     setPreviewSrc(null);
   }
+
+  function navBack() {
+    setImageSrc(null);
+    setResponse(null);
+  }
  
   return (
     <>
@@ -132,8 +137,14 @@ export default function ImageUploader() {
         (response && imageSrc ? (
           <div className="display-box">
             <div className="display-image-box">
-              <div className="w-full">
-                <h1 className="homepage-header">Your Results</h1>
+              <div className="display-title-box">
+                <button onClick={navBack}>
+                  <Image className="homepage2" alt="back" src="/navigate_before.png" width={36} height={48}/>
+                </button>
+                <p className="homepage-header">Your Results</p>
+                <button onClick={navBack}>
+                  <Image className="homepage2" alt="back" src="/navigate_next.png" width={36} height={48} style={{display:"none"}}/>
+                </button>
               </div>
               <div className="image-background">
                 <img
@@ -199,7 +210,7 @@ export default function ImageUploader() {
 	          <>
             <div className="drag-file h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
               <div className="flex justify-center align-center py-6">
-                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59} />
+                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59}/>
               </div>
               <div>
                 <strong>Drag & drop files or </strong>
