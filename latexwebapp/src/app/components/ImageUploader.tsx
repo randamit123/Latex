@@ -23,7 +23,7 @@ export default function ImageUploader() {
     return <div>Loading...</div>;
   }
 
-  function readFile(file) {
+  function readFile(file: File) {
     setSelectedFile(file);
 
       const reader = new FileReader();
@@ -95,7 +95,7 @@ export default function ImageUploader() {
     }
   };
 
-  function dropHandler(e) {
+  function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     console.log("File(s) dropped");
 
     // Prevent default behavior (Prevent file from being opened)
@@ -103,14 +103,18 @@ export default function ImageUploader() {
 
     // Use DataTransferItemList interface to access the file(s)
     [...e.dataTransfer.items].forEach((item, i) => {
-      // If dropped items aren't files, reject them
-      if (item.kind === "file" && item.type.match("^image/")) {
-        const file = item.getAsFile();
-        console.log(`… file[${i}].name = ${file.name}`);
-        readFile(file)	
+        // If dropped items aren't files, reject them
+        if (item.kind === "file" && item.type.match("^image/")) {
+            const file = item.getAsFile();
+            if (file) { // check file is not null
+                console.log(`… file[${i}].name = ${file.name}`);
+                readFile(file); // use file safely
+            } else {
+                console.error(`${i} could not be converted to a file.`);
+            }
         }
-      });
-    }
+    });
+  }
 
   function dragOverHandler(e: React.DragEvent) {
     console.log("File(s) in drop zone");
@@ -138,8 +142,15 @@ export default function ImageUploader() {
           <div className="display-box">
             <div className="display-image-box">
               <div className="display-title-box">
-                <button onClick={navBack}>
-                  <Image className="homepage2" alt="back" src="/arrow-left-dark.svg" width={36} height={48}/>
+                <button onClick={navBack} className="outlined-button">
+                  <Image
+                    className="icon"
+                    alt="back"
+                    src="/back_arrow_icon.svg"
+                    width={20}
+                    height={25}
+                  />
+                  <span className="button-text">Back</span>
                 </button>
                 <p className="homepage-header">Your Results</p>
                 <button onClick={navBack}>
