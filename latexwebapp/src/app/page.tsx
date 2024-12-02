@@ -8,22 +8,38 @@ import Image from "next/image";
 import "./layout.tsx";
 import { Space_Grotesk } from "next/font/google";
 
-import { LogoutButton } from "./components/auth/LogoutButton";
-import ImageUploader from "./components/upload/ImageUploader";
-import FileUploader from "./components/upload/FileUploader";
+export default async function LandingPage() {
+  const session = await getServerSession(authConfig);
 
-export default async function Home() {
-      const session = await getServerSession();
+  if (session) return redirect("/home");
 
-     /* if (!session) {
-        redirect("/");
-      }*/
-
-      return (
-        <div style={{backgroundColor:"#F6F6F6"}}>
-          <div className="flex items-center justify-center h-screen">
-            <ImageUploader />
+  return (
+    <div>
+      <div className="title-box">
+        <div>
+          <Image className="landing1" alt="landing1.1" src="/landingphoto1.1.png" height={400} width={400} />
+        </div>
+        <div>
+          <h1 className='title-header'>Turn your handwritten math into LaTeX</h1>
+          <p className="intro-explanation">
+            PaperLeaf uses the latest AI to convert your equations from handwriting to LaTeX. 
+            It's the easiest way to get your math into a document or web page.
+          </p>
+          <div className="intro-buttons">
+            <GoogleSignInButton />
+            <SignUpButton />
           </div>
         </div>
-      )
+      </div>
+      <div className="how-it-works"></div>
+      <div className="reviews-box"></div>
+      {" "}
+      <div className="get-started-box">
+        <div className="flex items-center justify-center h-screen ">
+          {" "}
+          {/* <GoogleSignInButton /> */}
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -24,16 +24,18 @@ export default function Navbar() {
         {status === "loading" ? (
           <div></div> 
         ) : session ? (
-          <>
+          <div className="flex flex-row items-center gap-x-2">
             {/* Protected Links */}
-            <Link href="/home" className="mx-2 text-gray-800 hover:text-gray-600">
-              Home
-            </Link>
-            <Link href="/dashboard" className="mx-2 text-gray-800 hover:text-gray-600">
-              Dashboard
-            </Link>
+            <div>
+              <Link href="/home" className="mx-2 text-gray-800 hover:text-gray-600">
+               Home
+              </Link>
+              <Link href="/dashboard" className="mx-2 text-gray-800 hover:text-gray-600">
+                Dashboard
+              </Link>
+            </div>
             <LogoutButton />
-          </>
+          </div>
         ) : (
           <div className="flex space-x-4">
             {/* Not Protected */}
