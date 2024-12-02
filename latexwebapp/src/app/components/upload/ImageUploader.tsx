@@ -139,11 +139,11 @@ export default function ImageUploader() {
             <div className="display-image-box">
               <div className="display-title-box">
                 <button onClick={navBack}>
-                  <Image className="homepage2" alt="back" src="/navigate_before.png" width={36} height={48}/>
+                  <Image className="homepage2" alt="back" src="/arrow-left-dark.svg" width={36} height={48}/>
                 </button>
                 <p className="homepage-header">Your Results</p>
                 <button onClick={navBack}>
-                  <Image className="homepage2" alt="back" src="/navigate_next.png" width={36} height={48} style={{display:"none"}}/>
+                  <Image className="homepage2" alt="back" src="/arrow-left.svg" width={36} height={48} style={{display:"none"}}/>
                 </button>
               </div>
               <div className="image-background">

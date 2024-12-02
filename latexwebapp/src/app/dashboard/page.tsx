@@ -24,8 +24,8 @@ export default async function Dashboard() {
                     <h1 className="homepage-header">Document History</h1>
                     <div className="document-view-box">
                         <div className="document-titles">
-                            <b>Name</b>
-                            <b>Date Uploaded</b>
+                            <p>Name</p>
+                            <p>Date Uploaded</p>
                         </div>
                         <div className="document-list-box"> 
 
