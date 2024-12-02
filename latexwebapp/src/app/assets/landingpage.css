@@ -10,20 +10,22 @@
     }
   }
 
+.landing-sections{
+    display: grid;
+}
+
 .title-box{
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 150px;
-    
-
 }
 
 .title-header{
-    font-size: 25pt;
+    font-size: 30pt;
     font-weight: 600;
     padding-bottom: 10px;
-    width: 400px;
+    width: 450px;
 }
 
 .intro-explanation{
@@ -38,16 +40,50 @@
     
 }
 .landing1{
-    height: 250px;
-    width: 340px;
-    margin-right: 25px;
+    height: 300px;
+    width: 480px;
+    margin-right: 35px;
     border-radius: 10px;
     margin-top: 10px;
 }
 .how-it-works{
-
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-top: 100px;
+    margin-left: 13%;
+    margin-right: 10%;
 }
 
+.tut-header{
+    justify-content: left;
+    font-size: 25pt;
+    font-weight: 600;
+    padding-bottom: 10px;
+    
+}
+
+.stepBoxes{
+    display: grid;
+    grid-template-columns: repeat(4, 270px);
+    
+}
+.step-container{
+    width: 260px;
+}
+.step-image{
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-top: 40px;
+}
+.step-header{
+    font-weight: 550;
+    font-size: 14pt;
+    margin-bottom: 5px;
+}
+.step-text{
+
+}
 .reviews-box{
 
 }
