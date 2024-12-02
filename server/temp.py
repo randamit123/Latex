@@ -8,7 +8,7 @@ import cv2
 import shutil
 
 # temporary backend server using CNN model till ViT is up and running
-
+# temp branch
 app = Flask(__name__)
 CORS(app)
 
