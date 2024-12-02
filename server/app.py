@@ -152,7 +152,6 @@ def predict():
                 print(llm_response)
             except Exception as e:
                 llm_response = f"OpenAI Error: {str(e)}"
-                print(llm_response)
 
             return jsonify({"result": output})
 

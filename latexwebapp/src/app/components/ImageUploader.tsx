@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 // import { newImage, createImage } from "../queries/insert";
 import { useSession } from "next-auth/react";
+import "/src/app/assets/homepage.css";
+import Image from "next/image";
 
 export default function ImageUploader() {
   const { data: session, status } = useSession();
@@ -21,18 +23,23 @@ export default function ImageUploader() {
     return <div>Loading...</div>;
   }
 
+  function readFile(file: File) {
+    setSelectedFile(file);
+
+      const reader = new FileReader();
+     
+      //preview
+      reader.onloadend = () => {
+        setPreviewSrc(reader.result as string);
+      }; 
+      reader.readAsDataURL(file);
+  }
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setSelectedFile(file);
-
-      // preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewSrc(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
+      readFile(file);
+      }
   };
 
   const imageHandler = async (imageUrl: string) => {
@@ -41,7 +48,7 @@ export default function ImageUploader() {
       return;
     }
 
-    // const newImg: newImage = {
+    //const newImg: newImage = {
     //   user_id: 1, // TODO: update to get actual UID
     //   user_email: session?.user?.email || "",
     //   image_url: imageUrl,
@@ -50,7 +57,7 @@ export default function ImageUploader() {
     // };
 
     try {
-      // await createImage(newImg);
+    //  await createImage(newImg);
       console.log("Image metadata saved successfully.");
     } catch (error) {
       console.error("Error saving image metadata:", error);
@@ -88,25 +95,83 @@ export default function ImageUploader() {
     }
   };
 
+  function dropHandler(e: React.DragEvent<HTMLDivElement>) {
+    console.log("File(s) dropped");
+
+    // Prevent default behavior (Prevent file from being opened)
+    e.preventDefault();
+
+    // Use DataTransferItemList interface to access the file(s)
+    [...e.dataTransfer.items].forEach((item, i) => {
+        // If dropped items aren't files, reject them
+        if (item.kind === "file" && item.type.match("^image/")) {
+            const file = item.getAsFile();
+            if (file) { // check file is not null
+                console.log(`… file[${i}].name = ${file.name}`);
+                readFile(file); // use file safely
+            } else {
+                console.error(`${i} could not be converted to a file.`);
+            }
+        }
+    });
+  }
+
+  function dragOverHandler(e: React.DragEvent) {
+    console.log("File(s) in drop zone");
+
+    // Prevent default behavior (Prevent file from being opened)
+    e.preventDefault();
+  }
+
+  function removeFile() {
+    setSelectedFile(null);
+    setImageSrc(null);
+    setPreviewSrc(null);
+  }
+
+  function navBack() {
+    setImageSrc(null);
+    setResponse(null);
+  }
+ 
   return (
     <>
-      {isMounted &&
+    <div className="homepage-box">
+    {isMounted &&
         (response && imageSrc ? (
-          <div className="bg-white shadow-lg rounded-lg p-8 w-3/4 mx-auto mt-10">
-            <div className="mb-8">
-              <img
-                src={previewSrc || ""}
-                alt="Uploaded"
-                className="w-full h-96 object-cover rounded-lg"
-              />
+          <div className="display-box">
+            <div className="display-image-box">
+              <div className="display-title-box">
+                <button onClick={navBack} className="outlined-button">
+                  <Image
+                    className="icon"
+                    alt="back"
+                    src="/back_arrow_icon.svg"
+                    width={20}
+                    height={25}
+                  />
+                  <span className="button-text">Back</span>
+                </button>
+                <p className="homepage-header">Your Results</p>
+                <button onClick={navBack}>
+                  <Image className="homepage2" alt="back" src="/arrow-left.svg" width={36} height={48} style={{display:"none"}}/>
+                </button>
+              </div>
+              <div className="image-background">
+                <img
+                 src={previewSrc || ""}
+                 alt="Uploaded"
+                 className="w-auto max-w-2xl h-52 object-cover rounded-lg border-gray-300 border-2"
+                />
+              </div>
             </div>
 
-            <div className="flex flex-row gap-8">
-              <div className="relative w-1/2 border border-gray-300 rounded-lg bg-gray-100">
-                <div className="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-t-lg">
+            <div className="flex flex-row justify-between w-full p-8">
+              <div className="results-text-box">
+                <div className="results-header px-3 py-2">
                   <span className="text-sm font-semibold text-gray-600">Editable Text</span>
                   <button
-                    className="text-sm text-gray-400 hover:text-gray-600"
+                    className="text-sm text-blue-400 hover:text-blue-600"
                     onClick={() => navigator.clipboard.writeText(response || "")}
                     title="Copy to clipboard"
                   >
@@ -119,14 +184,15 @@ export default function ImageUploader() {
                   value={response}
                   onChange={(e) => setResponse(e.target.value)}
                   placeholder="Editable Latex"
+                  style={{resize:"none"}}
                 ></textarea>
               </div>
 
-              <div className="relative w-1/2 border border-gray-300 rounded-lg bg-gray-100">
-                <div className="flex items-center justify-between px-3 py-2 bg-gray-200 rounded-t-lg">
+              <div className="results-text-box">
+                <div className="results-header px-3 py-2">
                   <span className="text-sm font-semibold text-gray-600">Final Version</span>
                   <button
-                    className="text-sm text-gray-400 hover:text-gray-600"
+                    className="text-sm text-blue-400 hover:text-blue-600"
                     onClick={() => navigator.clipboard.writeText(response || "")}
                     title="Copy to clipboard"
                   >
@@ -135,45 +201,84 @@ export default function ImageUploader() {
                 </div>
 
                 <textarea
-                  className="w-full h-40 border-0 p-3 bg-gray-100 rounded-b-lg focus:ring-0 focus:outline-none"
+                  className="w-full h-40 border-0 p-3 bg-white rounded-b-lg focus:ring-0 focus:outline-none"
                   value={response}
                   readOnly
                   placeholder="Final Latex"
+                  style={{resize:"none"}}
                 ></textarea>
               </div>
             </div>
           </div>
         ) : (
-          <div className="bg-white shadow-lg rounded-lg p-6 w-80 sm:w-96 mx-auto mt-10">
-            <h1 className="text-gray-800 text-2xl text-center font-semibold mb-6">
-              Upload an Image
-            </h1>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 p-2 mb-4"
-            />
-            {previewSrc && (
-              <div className="w-full h-48 border border-gray-200 rounded-lg overflow-hidden mb-4">
-                <img
-                  src={previewSrc}
-                  alt="Preview"
-                  className="object-cover w-full h-full"
-                />
+          <>
+        <div className="upload-box">
+          <div className="title-box">
+            <h1 className='homepage-header'>Upload</h1>
+          </div>
+        
+          {selectedFile ? (
+	          <>
+            <div className="drag-file h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
+              <div className="flex justify-center align-center py-6">
+                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59}/>
               </div>
-            )}
+              <div>
+                <strong>Drag & drop files or </strong>
+                <input
+                 type="file"
+                 accept="image/*"
+                 onChange={handleFileChange}
+                 style={{display:"none"}}
+                 id="fileUpload"
+                 />
+                <label htmlFor="fileUpload" style={{color:"#4A789C", textDecoration:"underline"}}>Browse</label>
+              </div>
+              <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
+            </div>
+           
+            <div className="uploaded-file">
+              <div className="uploaded-header">
+               <p>Uploaded</p>
+              </div>
+              <div className="file-item">
+                <p>{selectedFile.name}</p>
+                <button onClick={removeFile}>
+                  <Image className="homepage2" alt="homepage1" src="/Bin_icon.png" width={10} height={10}/>
+                </button>
+              </div>
+            </div>
+            </>
+          ) : (
+            <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
+              <div className="flex justify-center align-center py-6">
+                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59} />
+              </div>
+              <div>
+                <strong>Drag & drop files or </strong>
+                <input
+                 type="file"
+                 accept="image/*"
+                 onChange={handleFileChange}
+                 style={{display:"none"}}
+                 id="fileUpload"
+                 />
+                <label htmlFor="fileUpload" style={{color:"#4A789C", textDecoration:"underline"}}>Browse</label>
+              </div>
+              <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
+            </div>
+          )}
+
             <button
+              className="flex items-center justify-center gap-3 bg-[#2194F2] text-white border border-grey-300 rounded-lg px-6 py-3 text-sm font-medium shadow-md transition duration-200 hover:bg-white hover:text-[#2194F2] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
               onClick={handleSubmit}
-              className={`bg-[#2194F2] text-white w-full py-2 rounded-lg hover:bg-white hover:text-[#2194F2] hover:outline hover:outline-1 hover:outline-[#2194F2] transition duration-300 ${
-                isLoading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={isLoading}
-            >
+              disabled={isLoading || !selectedFile}>
               {isLoading ? "Loading..." : "Submit"}
             </button>
           </div>
+          </>
         ))}
+    </div>
     </>
   );
 }
