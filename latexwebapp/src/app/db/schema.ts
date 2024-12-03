@@ -6,8 +6,6 @@ export const users = pgTable("users", {
     name: text("name"),
     email: text("email").unique(),
     image: text("image"),
-    // password: varchar("password").notNull(),
-    // created_at: timestamp("created_at").defaultNow(),
 })
 
 export const referrals = pgTable("referrals", {
@@ -31,7 +29,6 @@ export const accounts = pgTable("accounts", {
 export const images = pgTable("images", {
     id: serial("id").primaryKey(),
     userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-    // userEmail: varchar("user_email").notNull().references(() => users.email),
     latexId: integer("latex_id").notNull().references(() => latex.id),
     imageName: text("image_name").notNull(),
     fileType: text("file_type"),
@@ -41,7 +38,6 @@ export const images = pgTable("images", {
 export const latex = pgTable("latex", {
     id: serial("id").primaryKey(),
     userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-    // imageId: integer("image_id").notNull().references(() => images.id),
     latexCode: text("latex_code").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),
@@ -84,6 +80,7 @@ export const imagesRelations = relations(images, ({ one }) => ({
         references: [latex.id],
     }),
 }))
+
 
 export type selectUser = typeof users.$inferSelect
 export type selctReferral = typeof referrals.$inferSelect
