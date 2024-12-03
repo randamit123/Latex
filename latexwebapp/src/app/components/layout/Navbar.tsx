@@ -18,6 +18,7 @@ export default function Navbar() {
           <Image src="/Logo.svg" alt="Logo" width={50} height={50} priority/>
           {/* <span className="ml-3 text-lg font-bold text-gray-800">PaperLeaf</span>*/}
         </Link>
+        <h1 style={{ fontSize: '16pt', fontWeight: '600', paddingLeft: '10px' }}>PaperLeaf</h1>
       </div>
 
       <div className="flex items-center">

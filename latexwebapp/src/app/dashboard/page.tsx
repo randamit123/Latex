@@ -1,12 +1,11 @@
 
-import { LogoutButton } from "../components/auth/LogoutButton";
-import { getServerSession } from "next-auth/next";
+import { auth } from "../auth/NextAuth";
 import { redirect } from "next/navigation";
 import "/src/app/assets/homepage.css";
 import { Anybody } from "next/font/google";
 
 export default async function Dashboard() {
-    const session = await getServerSession();
+    const session = await auth();
 
     if (!session) {
         redirect("/");
