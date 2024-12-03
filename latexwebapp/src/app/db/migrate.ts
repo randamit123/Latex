@@ -1,5 +1,6 @@
 import { latexdb } from "./index"
 import { migrate } from "drizzle-orm/neon-http/migrator"
+import "dotenv/config"
 
 const main = async () => {
     try {

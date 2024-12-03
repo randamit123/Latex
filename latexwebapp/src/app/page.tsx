@@ -1,5 +1,4 @@
-import { getServerSession } from "next-auth";
-import { authConfig } from "./auth/NextAuth";
+import { auth } from "./auth/NextAuth";
 import { redirect } from "next/navigation";
 import { GoogleSignInButton } from "./components/auth/GoogleSignInButton";
 import  SignUpButton  from "./components/auth/SignUpButton";
@@ -11,7 +10,7 @@ import StepComponent from "./components/layout/StepComponent";
 import { Space_Grotesk } from "next/font/google";
 
 export default async function LandingPage() {
-  const session = await getServerSession(authConfig);
+  const session = await auth()
 
   if (session) return redirect("/home");
 
