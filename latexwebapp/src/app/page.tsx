@@ -19,7 +19,7 @@ export default async function LandingPage() {
     <div className="landing-sections">
       <div className="title-box">
         <div>
-          <Image className="landing1" alt="landing1.1" src="/landingphoto1.1.png" height={400} width={400} />
+          <Image className="landing1" alt="landing1.1" src="/landingphoto1.1.svg" height={300} width={480} />
         </div>
         <div>
           <h1 className='title-header'>Turn your handwritten math into LaTeX</h1>
@@ -47,22 +47,22 @@ export default async function LandingPage() {
         </div>
         <div className="stepBoxes">
           <div className="step-container">
-            <Image className="step-image" src="/landing2.1.png" alt="landing2.1" height={300} width={300} />
+            <Image className="step-image" src="/landing2.1.svg" alt="landing2.1" height={300} width={300} />
             <h1 className="step-header">Write the equation</h1>
             <p className="step-text">Use your mouse, stylus, or touch screen to write the equation</p>
           </div>
           <div className="step-container">
-            <Image className="step-image" src ="/landing2.2.png" alt="landing2.2" height={300} width ={300} />
+            <Image className="step-image" src ="/landing2.2.svg" alt="landing2.2" height={300} width ={300} />
             <h1 className="step-header">Take a photo</h1>
             <p className="step-text">If you're using a phone or tablet, just take a photo of the writing</p>
           </div>
           <div className="step-container">
-          <Image className="step-image" src="/landing2.3.png" alt="landing2.3" height={300} width={300} />
+          <Image className="step-image" src="/landing2.3.svg" alt="landing2.3" height={300} width={300} />
             <h1 className="step-header">Upload the image</h1>
             <p className="step-text">If you're using a computer, you can upload an image file</p>
           </div>
           <div className="step-container">
-          <Image className="step-image" src="/landing2.4.png" alt="landing2.4" height={300} width={300} />
+          <Image className="step-image" src="/landing2.4.svg" alt="landing2.4" height={300} width={300} />
             <h1 className="step-header">Get the LaTeX</h1>
             <p className="step-text">PaperLeaf will convert your handwritten math to LaTeX in seconds</p>
           </div>
@@ -71,6 +71,7 @@ export default async function LandingPage() {
       <div className="reviews-box">
         <h1 className="rev-header">What our users are saying</h1>
       </div>
+      <Image className="reviews-box2" src="/reviews.png" alt="reviews" height={300} width={300} />
       <div className="get-started-box">
         <div className="start-1">
           <h1 className="start1-text">Ready to try PaperLeaf?</h1>
