@@ -1,49 +1,88 @@
-import { pgTable, uuid, serial, integer, text, timestamp } from "drizzle-orm/pg-core"
+import {
+  timestamp,
+  pgTable,
+  text,
+  primaryKey,
+  integer
+} from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
+import type { AdapterAccountType } from "next-auth/adapters"
 
-export const users = pgTable("users", {
-    id: serial("id").primaryKey(),
-    name: text("name"),
-    email: text("email").unique(),
-    image: text("image"),
+export const users = pgTable("user", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name"),
+  email: text("email").unique(),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  image: text("image"),
+})
+
+export const accounts = pgTable(
+  "account",
+  {
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: text("type").$type<AdapterAccountType>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("providerAccountId").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
+  },
+  (account) => ({
+    compoundKey: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
+  })
+)
+ 
+export const sessions = pgTable("session", {
+  sessionToken: text("sessionToken").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
 })
 
 export const referrals = pgTable("referrals", {
-    userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+    userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
     referralEmail: text("referral_email").unique().notNull(),
     referralCode: text("referral_code"),
 })
 
-export const accounts = pgTable("accounts", {
-    userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-    provider: text("provider"),
-    accessToken: text("access_token"),
-    expiresAt: integer("expired_at"),
-    refreshToken: text("refresh_token"),
-    idToken: text("id_token"),
-    tokenType: text("token_type"),
-    scope: text("scope"), 
-    sessionState: text("session_state"),
+export const images = pgTable("images", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  latexId: integer("latex_id")
+    .notNull()
+    .references(() => latex.id),
+  imageName: text("image_name").notNull(),
+  fileType: text("file_type"),
+  fileSize: integer("file_size"),
 })
 
-export const images = pgTable("images", {
-    id: serial("id").primaryKey(),
-    userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-    latexId: integer("latex_id").notNull().references(() => latex.id),
-    imageName: text("image_name").notNull(),
-    fileType: text("file_type"),
-    fileSize: integer("file_size"),
-})
 
 export const latex = pgTable("latex", {
-    id: serial("id").primaryKey(),
-    userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-    latexCode: text("latex_code").notNull(),
-    createdAt: timestamp("created_at").defaultNow(),
-    updatedAt: timestamp("updated_at").defaultNow(),
+  id: integer("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  latexCode: text("latex_code").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 })
 
 export const usersRelations = relations(users, ({ many }) => ({
+    accounts: many(accounts),
+    sessions: many(sessions),
     images: many(images),
     latex: many(latex),
 }))
@@ -62,6 +101,13 @@ export const accountsRelations = relations(accounts, ({ one }) => ({
     }),
 }))
 
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+    user: one(users, {
+        fields: [sessions.userId],
+        references: [users.id],
+    }),
+}))
+
 export const latexRelations = relations(latex, ({ one, many }) => ({
     user: one(users, {
         fields: [latex.userId],
@@ -71,19 +117,20 @@ export const latexRelations = relations(latex, ({ one, many }) => ({
 }))
 
 export const imagesRelations = relations(images, ({ one }) => ({
-    user: one(users, {
-        fields: [images.userId],
-        references: [users.id],
-    }),
-    latex: one(latex, {
-        fields: [images.latexId],
-        references: [latex.id],
-    }),
-}))
+  user: one(users, {
+    fields: [images.userId],
+    references: [users.id],
+  }),
+  latex: one(latex, {
+    fields: [images.latexId],
+    references: [latex.id],
+  }),
+}));
 
 
 export type selectUser = typeof users.$inferSelect
-export type selctReferral = typeof referrals.$inferSelect
 export type selectAccount = typeof accounts.$inferSelect
+export type selectSession = typeof sessions.$inferSelect
+export type selectReferral = typeof referrals.$inferSelect
 export type selectLatex = typeof latex.$inferSelect
 export type selectImage = typeof images.$inferSelect
