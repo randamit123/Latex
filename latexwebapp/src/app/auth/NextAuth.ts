@@ -6,4 +6,10 @@ import { latexdb } from "../db"
 export const { handlers, auth } = NextAuth({
   adapter: DrizzleAdapter(latexdb),
   providers: [Google],
+  callbacks: {
+    session({ session, user }) {
+      session.user.id = user.id
+      return session
+    },
+  }
 })

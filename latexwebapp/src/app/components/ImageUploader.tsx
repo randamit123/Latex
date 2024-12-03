@@ -19,8 +19,12 @@ export default function ImageUploader() {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) {
+  if (status === 'loading' || !isMounted) {
     return <div>Loading...</div>;
+  }
+
+  if (!session?.user) {
+    return <div>Please log in to upload images.</div>;
   }
 
   function readFile(file: File) {
@@ -42,26 +46,29 @@ export default function ImageUploader() {
       }
   };
 
-  const imageHandler = async (imageUrl: string) => {
+  const imageHandler = async (latexCode: string, imageUrl: string) => {
     if (!session || !selectedFile) {
         console.error("User not authenticated or no file selected.");
         return;
     }
 
+    console.log("Session User ID:", session.user?.id);
     // create new Latex record
-    const newLatex: newLatex = {
-        userId: 1, // TODO: Replace with actual userId from session
-        latexCode: "temp",
+    const newLatex: Omit<newLatex, "id"> = {
+      userId: String(session.user?.id),
+      latexCode: latexCode,
     };
+
 
     try {
         const insertedLatex = await createLatex(newLatex);
 
         // Create new Image record using inserted latexId
-        const newImg: newImage = {
-            userId: 1,
+        console.log(String(session.user?.id))
+        const newImg: Omit<newImage, "id"> = {
+            userId: String(session.user?.id),
             latexId: insertedLatex.id,
-            imageName: "temp",
+            imageName: selectedFile.name,
             fileType: selectedFile.type,
             fileSize: selectedFile.size,
         };
@@ -92,7 +99,7 @@ export default function ImageUploader() {
         setResponse(data.result);
         setImageSrc(previewSrc);
 
-        await imageHandler(data.image_url);
+        await imageHandler(data.result, data.image_url);
         } else {
             throw new Error("Invalid response format from the server.");
         }

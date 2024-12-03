@@ -57,11 +57,13 @@ export const referrals = pgTable("referrals", {
 })
 
 export const images = pgTable("images", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => 'gen_random_uuid()'), 
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  latexId: integer("latex_id")
+  latexId: text("latex_id")
     .notNull()
     .references(() => latex.id),
   imageName: text("image_name").notNull(),
@@ -71,7 +73,9 @@ export const images = pgTable("images", {
 
 
 export const latex = pgTable("latex", {
-  id: integer("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => 'gen_random_uuid()'), 
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -126,7 +130,6 @@ export const imagesRelations = relations(images, ({ one }) => ({
     references: [latex.id],
   }),
 }));
-
 
 export type selectUser = typeof users.$inferSelect
 export type selectAccount = typeof accounts.$inferSelect
