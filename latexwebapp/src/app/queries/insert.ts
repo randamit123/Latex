@@ -17,7 +17,7 @@ export async function createLatex(arg: newLatex) {
     return insertedLatex;
 }
 
-export async function createImage(arg: newImage) {
-    await latexdb.insert(images).values(arg);
+export async function createImage (arg: newImage) {
+     await latexdb.insert(images).values(arg);
 }
 
