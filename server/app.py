@@ -14,7 +14,7 @@ CORS(app)
 
 # config
 UPLOAD_FOLDER = "uploaded_images"
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 model_path = "handwritten_math_symbols_CNN_model.keras"  # model

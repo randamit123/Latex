@@ -5,6 +5,6 @@ export default defineConfig({
     schema: "src/app/db/schema.ts",
     out: "./latexMigrations",
     dbCredentials: {
-        url: process.env.DATABASE_URL!,
+        url: process.env.NEXT_PUBLIC_DATABASE_URL!,
     }
 })

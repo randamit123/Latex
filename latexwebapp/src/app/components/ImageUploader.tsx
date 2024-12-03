@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import { newImage, createImage } from "../queries/insert";
+import { newImage, createImage, createLatex, newLatex } from "../queries/insert";
 import { useSession } from "next-auth/react";
 import "/src/app/assets/homepage.css";
 import Image from "next/image";
@@ -44,23 +44,32 @@ export default function ImageUploader() {
 
   const imageHandler = async (imageUrl: string) => {
     if (!session || !selectedFile) {
-      console.error("User not authenticated or no file selected.");
-      return;
+        console.error("User not authenticated or no file selected.");
+        return;
     }
 
-    //const newImg: newImage = {
-    //   user_id: 1, // TODO: update to get actual UID
-    //   user_email: session?.user?.email || "",
-    //   image_url: imageUrl,
-    //   file_size: selectedFile.size,
-    //   file_type: selectedFile.type,
-    // };
+    // create new Latex record
+    const newLatex: newLatex = {
+        userId: 1, // TODO: Replace with actual userId from session
+        latexCode: "temp",
+    };
 
     try {
-    //  await createImage(newImg);
-      console.log("Image metadata saved successfully.");
+        const insertedLatex = await createLatex(newLatex);
+
+        // Create new Image record using inserted latexId
+        const newImg: newImage = {
+            userId: 1,
+            latexId: insertedLatex.id,
+            imageName: "temp",
+            fileType: selectedFile.type,
+            fileSize: selectedFile.size,
+        };
+
+        await createImage(newImg);
+        console.log("Image metadata saved successfully.");
     } catch (error) {
-      console.error("Error saving image metadata:", error);
+        console.error("Error saving image metadata:", error);
     }
   };
 
