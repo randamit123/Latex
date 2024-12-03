@@ -3,6 +3,7 @@ import { authConfig } from "./auth/NextAuth";
 import { redirect } from "next/navigation";
 import { GoogleSignInButton } from "./components/auth/GoogleSignInButton";
 import  SignUpButton  from "./components/auth/SignUpButton";
+import SignUpForFree from "./components/auth/SignUpForFree";
 import "./assets/landingpage.css";
 import Image from "next/image";
 import "./layout.tsx";
@@ -28,7 +29,7 @@ export default async function LandingPage() {
           </p>
           <div className="intro-buttons">
             <GoogleSignInButton />
-            <SignUpButton />
+            <SignUpForFree />
           </div>
         </div>
       </div>
@@ -67,14 +68,23 @@ export default async function LandingPage() {
           </div>
         </div>
       </div>
-      <div className="reviews-box"></div>
+      <div className="reviews-box">
+        <h1 className="rev-header">What our users are saying</h1>
+      </div>
       <div className="get-started-box">
-        <div className="flex items-center justify-center h-screen ">
+        <div className="start-1">
+          <h1 className="start1-text">Ready to try PaperLeaf?</h1>
+          <Image src="/Logo.svg" alt="Logo" height={80} width={80} />
+        </div>
+        <p>Start turning your handwritten math into LaTeX today.</p>
+      </div>
+        <div className="flex items-center justify-center">
           {" "}
           {/* bg-gradient-to-b from-green-100 to-green-600 */}
-          <GoogleSignInButton />
+          <div className="start-button">
+            <SignUpForFree />
+          </div>
         </div>
-      </div>
     </div>
   );
 }
