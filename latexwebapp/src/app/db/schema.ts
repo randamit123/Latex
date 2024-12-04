@@ -7,6 +7,7 @@ import {
 } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 import type { AdapterAccountType } from "next-auth/adapters"
+import crypto from "crypto"
 
 export const users = pgTable("user", {
   id: text("id")
@@ -59,7 +60,7 @@ export const referrals = pgTable("referrals", {
 export const images = pgTable("images", {
   id: text("id")
     .primaryKey()
-    .$defaultFn(() => 'gen_random_uuid()'), 
+    .$defaultFn(() => self.crypto.randomUUID()), 
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -71,11 +72,10 @@ export const images = pgTable("images", {
   fileSize: integer("file_size"),
 })
 
-
 export const latex = pgTable("latex", {
   id: text("id")
     .primaryKey()
-    .$defaultFn(() => 'gen_random_uuid()'), 
+    .$defaultFn(() => self.crypto.randomUUID()), 
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
