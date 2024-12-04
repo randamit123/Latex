@@ -33,6 +33,9 @@ export default function Navbar() {
             <Link href="/dashboard" className="mx-2 text-gray-800 hover:text-gray-600">
               Dashboard
             </Link>
+            <Link href="/referrals" className="mx-2 text-gray-800 hover:text-gray-600">
+              Referrals
+            </Link>
             <LogoutButton />
           </>
         ) : (
