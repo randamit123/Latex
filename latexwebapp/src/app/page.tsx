@@ -92,6 +92,7 @@ export default async function LandingPage() {
         <div className="start-button">
           <SignUpForFree />
         </div>
+      </div>
     </div>
   );
 }
