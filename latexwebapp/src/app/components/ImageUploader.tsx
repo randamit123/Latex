@@ -48,13 +48,13 @@ export default function ImageUploader() {
       return;
     }
 
-    //const newImg: newImage = {
-    //   user_id: 1, // TODO: update to get actual UID
-    //   user_email: session?.user?.email || "",
-    //   image_url: imageUrl,
-    //   file_size: selectedFile.size,
-    //   file_type: selectedFile.type,
-    // };
+    console.log("Session User ID:", session.user?.id);
+    // create new Latex record
+    const newLatex: Omit<newLatex, "id"> = {
+      userId: String(session.user?.id),
+      latexCode: latexCode,
+    };
+    console.log(imageUrl)
 
     try {
     //  await createImage(newImg);
@@ -73,7 +73,7 @@ export default function ImageUploader() {
     formData.append("image", selectedFile);
 
     try {
-        const res = await fetch("http://localhost:5001/predict", {
+        const res = await fetch("https://server-delta-wheat.vercel.app/predict", {
         method: "POST",
         body: formData,
       });
@@ -147,7 +147,7 @@ export default function ImageUploader() {
                 </button>
               </div>
               <div className="image-background">
-                <img
+                <Image
                  src={previewSrc || ""}
                  alt="Uploaded"
                  className="w-auto max-w-2xl h-52 object-cover rounded-lg border-gray-300 border-2"
