@@ -89,7 +89,7 @@ export default function ImageUploader() {
     formData.append("image", selectedFile);
 
     try {
-        const res = await fetch("http://localhost:5001/predict", {
+        const res = await fetch("https://server-delta-wheat.vercel.app/predict", {
         method: "POST",
         body: formData,
       });
