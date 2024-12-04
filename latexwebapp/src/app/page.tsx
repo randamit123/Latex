@@ -1,13 +1,10 @@
 import { auth } from "./auth/NextAuth";
 import { redirect } from "next/navigation";
 import { GoogleSignInButton } from "./components/auth/GoogleSignInButton";
-import  SignUpButton  from "./components/auth/SignUpButton";
 import SignUpForFree from "./components/auth/SignUpForFree";
 import "./assets/landingpage.css";
 import Image from "next/image";
 import "./layout.tsx";
-import StepComponent from "./components/layout/StepComponent";
-import { Space_Grotesk } from "next/font/google";
 
 export default async function LandingPage() {
   const session = await auth()
@@ -24,7 +21,7 @@ export default async function LandingPage() {
           <h1 className='title-header'>Turn your handwritten math into LaTeX</h1>
           <p className="intro-explanation">
             PaperLeaf uses the latest AI to convert your equations from handwriting to LaTeX. 
-            It's the easiest way to get your math into a document or web page.
+            It&apos;s the easiest way to get your math into a document or web page.
           </p>
           <div className="intro-buttons">
             <GoogleSignInButton />
@@ -41,7 +38,7 @@ export default async function LandingPage() {
             PaperLeaf is the fastest and most accurate way to convert your handwritten math to LaTeX.
           </p>
           <p>
-            Here's how it works:
+            Here&apos;s how it works:
           </p>
         </div>
         <div className="stepBoxes">
@@ -53,12 +50,12 @@ export default async function LandingPage() {
           <div className="step-container">
             <Image className="step-image" src ="/landing2.2.svg" alt="landing2.2" height={300} width ={300} />
             <h1 className="step-header">Take a photo</h1>
-            <p className="step-text">If you're using a phone or tablet, just take a photo of the writing</p>
+            <p className="step-text">If you&apos;re using a phone or tablet, just take a photo of the writing</p>
           </div>
           <div className="step-container">
           <Image className="step-image" src="/landing2.3.svg" alt="landing2.3" height={300} width={300} />
             <h1 className="step-header">Upload the image</h1>
-            <p className="step-text">If you're using a computer, you can upload an image file</p>
+            <p className="step-text">If you&apos;re using a computer, you can upload an image file</p>
           </div>
           <div className="step-container">
           <Image className="step-image" src="/landing2.4.svg" alt="landing2.4" height={300} width={300} />

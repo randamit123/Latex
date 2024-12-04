@@ -58,7 +58,7 @@ export default function ImageUploader() {
       userId: String(session.user?.id),
       latexCode: latexCode,
     };
-
+    console.log(imageUrl)
 
     try {
         const insertedLatex = await createLatex(newLatex);
@@ -174,7 +174,7 @@ export default function ImageUploader() {
                 </button>
               </div>
               <div className="image-background">
-                <img
+                <Image
                  src={previewSrc || ""}
                  alt="Uploaded"
                  className="w-auto max-w-2xl h-52 object-cover rounded-lg border-gray-300 border-2"
