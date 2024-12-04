@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 
 export default function LoginButton() {
     const handleClick = () => {
@@ -10,7 +9,7 @@ export default function LoginButton() {
 
     return (
         <button
-            className="flex items-center justify-center gap-3 bg-white text-[#2194F2] border border-gray-300 rounded-lg px-6 py-3 text-sm font-medium shadow-md transition duration-200 hover:text-white hover:bg-[#2194F2] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
+            className="flex items-center justify-center gap-3 bg-white text-[#2194F2] border border-gray-300 rounded-2xl px-6 py-3 text-sm font-medium shadow-md transition duration-200 hover:text-white hover:bg-[#2194F2] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
             onClick={handleClick}
         >
             <span>Login</span>

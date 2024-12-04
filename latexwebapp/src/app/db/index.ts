@@ -1,23 +1,12 @@
-// import { drizzle,  } from "drizzle-orm/neon-http"
-// import { neon } from "@neondatabase/serverless"
-// import { config } from "dotenv"
-// import * as schema from "./schema";
+import { drizzle,  } from "drizzle-orm/neon-http"
+import { neon } from "@neondatabase/serverless"
+import { config } from "dotenv"
+// import fetch from 'node-fetch';
 
-// config({path: ".env.local"});
-
-// const sql = neon(String(process.env.DATABASE_URL)!)
-
-// const latexdb = drizzle(sql)
-// export { latexdb };
-
-// config();
-
-// console.log("DATABASE_URL:", process.env.DATABASE_URL);
-// if (!process.env.DATABASE_URL) {
-//   throw new Error("DATABASE_URL is not defined in the environment variables.");
+// if (!globalThis.fetch) {
+//     globalThis.fetch = fetch as unknown as typeof globalThis.fetch;
 // }
 
-// const postgresql = neon(process.env.DATABASE_URL);
-// const latexdb = drizzle(postgresql, { schema, logger: true });
-
-// export { latexdb };
+config();
+const sql = neon<boolean, boolean>(process.env.NEXT_PUBLIC_DATABASE_URL!); 
+export const latexdb = drizzle(sql)

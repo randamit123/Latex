@@ -1,11 +1,15 @@
-import { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth from "next-auth"
+import { DrizzleAdapter } from "@auth/drizzle-adapter"
+import Google from "next-auth/providers/google"
+import { latexdb } from "../db"
 
-export const authConfig: NextAuthOptions = {
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    }),
-  ],
-};
+export const { handlers, auth } = NextAuth({
+  adapter: DrizzleAdapter(latexdb),
+  providers: [Google],
+  callbacks: {
+    session({ session, user }) {
+      session.user.id = user.id
+      return session
+    },
+  }
+})
