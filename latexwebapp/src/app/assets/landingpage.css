@@ -4,137 +4,171 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 860px) {
-    .landing1 {
-      display: none; /* Hide the image */
-    }
-  }
-
-.landing-sections{
-    display: grid;
+/* General Styling */
+body {
+  font-family: 'Inria Sans', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.title-box{
-    display: flex;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-    padding-top: 150px;
-    width: 1090px;
+.landing-sections {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
-.title-header{
-    font-size: 30pt;
-    font-weight: 600;
-    padding-bottom: 10px;
-    width: 450px;
+/* Title Section */
+.title-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align to the left on small screens */
+  align-items: center;
+  gap: 20px;
+  padding-top: 150px;
+  max-width: 1090px;
+  margin: 0 auto;
 }
 
-.intro-explanation{
-    margin-bottom: 25px;
-    width: 500px;
+.landing1 {
+  height: 300px;
+  width: 100%; /* Scale dynamically */
+  max-width: 480px;
+  border-radius: 10px;
+  margin: 10px 0;
 }
 
-.intro-buttons{
-    display: grid;
-    grid-template-columns: repeat(2, 190px);
-    gap: 25px;
-    
-}
-.landing1{
-    height: 300px;
-    width: 480px;
-    margin-right: 65px;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-.how-it-works{
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    align-items: left;
-    padding-top: 100px;
-   
+.title-content {
+  flex: 1;
 }
 
-.tut-header{
-    justify-content: left;
-    font-size: 25pt;
-    font-weight: 600;
-    padding-bottom: 10px;   
+.title-header {
+  font-size: 30pt;
+  font-weight: 600;
+  margin-bottom: 10px;
+  word-wrap: break-word;
 }
 
-.stepBoxes{
-    display: grid;
-    grid-template-columns: repeat(4, 270px);
-    
-}
-.step-container{
-    width: 260px;
-}
-.step-image{
-    border-radius: 10px;
-    margin-bottom: 15px;
-    margin-top: 40px;
-}
-.step-header{
-    font-weight: 550;
-    font-size: 14pt;
-    margin-bottom: 5px;
+.intro-explanation {
+  font-size: 14pt;
+  margin-bottom: 25px;
+  word-wrap: break-word;
 }
 
-.reviews-box{
-    display: flex;
-    align-items: left;
-    justify-self: center;
-    padding-top: 100px;
-    width: 1090px;
+.intro-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.reviews-box2{
-    display: flex;
-    align-items: left;
-    justify-self: center;
-    padding-top: 10px;
-    width: 1090px;
-    border-radius: 35px;
+/* How It Works Section */
+.how-it-works {
+  margin-top: 100px;
+  text-align: left;
 }
 
-.rev-header{
-    justify-content: left;
-    font-size: 20pt;
-    font-weight: 600;
-    padding-bottom: 10px;  
+.tut-header {
+  font-size: 25pt;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
-.review-image{
-    height: 400px;
-    width: 1090px;
+.stepBoxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusts based on screen size */
+  gap: 20px;
 }
 
+.step-container {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.step-image {
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.step-header {
+  font-weight: 550;
+  font-size: 14pt;
+  margin-bottom: 5px;
+}
+
+.step-text {
+  font-size: 12pt;
+}
+
+/* Reviews Section */
+.reviews-box {
+  margin-top: 100px;
+  text-align: left;
+}
+
+.rev-header {
+  font-size: 20pt;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.review-image {
+  width: 100%;
+  height: auto;
+  max-width: 1090px;
+}
+
+/* Get Started Section */
 .get-started-box {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding-top: 130px;
-  }
+  margin-top: 150px;
+  text-align: left;
+}
 
 .start-1 {
-    display: grid;
-    grid-template-columns: auto auto; /* Two columns: text and logo */
-    align-items: center; /* Vertically aligns items within their grid cells */
-    gap: 10px; /* Space between the text and logo */
-  }
-  
-  .start1-text {
-    font-size: 25pt;
-    font-weight: 600;
-    margin: 0; /* Remove default margin */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start1-text {
+  font-size: 25pt;
+  font-weight: 600;
+}
+
+.start-button {
+  margin-top: 50px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 860px) {
+  .landing1 {
+    display: none; /* Hide image on smaller screens */
   }
 
-  .start-button{
-    padding-bottom: 150px;
-    padding-top: 50px;
+  .title-box {
+    justify-content: center;
   }
+
+  .title-header {
+    font-size: 24pt;
+  }
+
+  .intro-explanation {
+    font-size: 12pt;
+  }
+
+  .stepBoxes {
+    grid-template-columns: 1fr; /* Stack steps on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .title-header {
+    font-size: 20pt;
+  }
+
+  .intro-explanation {
+    font-size: 10pt;
+  }
+}
