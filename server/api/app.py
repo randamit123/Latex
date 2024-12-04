@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": ["https://latex-hazel.vercel.app"]}})
 
 # config
 UPLOAD_FOLDER = "uploaded_images"
