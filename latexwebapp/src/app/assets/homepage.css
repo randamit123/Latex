@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 60px) and (max-height: 60px) {
+@media (max-width: 60px, max-height: 60px) {
   .homepage1 {
     display: none;
   }
@@ -21,22 +21,17 @@
 .upload-box{
   display: flex;
   flex-direction: column;
-  width: 540px;
-  height: 620px;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   justify-content: top;
   align-items: center;
   gap: 25px;
+  padding: 25px;
   text-align: center;
   background-color: white;
 }
 
 .display-box{
-  display: flex;
-  flex-direction: column;
-  width: 850px;
-  height: 620px;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   justify-content: top;
@@ -86,7 +81,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 25px;
 } 
 
 .homepage-header{
@@ -95,7 +89,6 @@
 }
 
 .drag-file{
-  width: 445px;
   max-height: 427px;
   display: flex;
   flex-direction: column;
@@ -121,14 +114,10 @@
 
 
 .uploaded-file{
-  width: 445px;
-  height: 175px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #676767;
-  gap: 17px;
 }
 
 .uploaded-header{
@@ -140,7 +129,6 @@
 }
 
 .file-item{
-  width: 445px;
   height: 36px;
   display: flex;
   flex-direction: row;
@@ -172,54 +160,20 @@
   background-color: white;
 }
 
-.outlined-button {
-  display: flex; /* Ensures icon and text are on the same line */
-  align-items: center; /* Vertically aligns items */
-  border: 2px solid #000; /* Outlined border */
-  padding: 5px 10px; /* Adds spacing around content */
-  border-radius: 5px; /* Rounds corners */
-  background-color: transparent; /* No background */
-  cursor: pointer; /* Changes cursor to pointer on hover */
-}
-
-.icon {
-  margin-right: 8px; /* Adds space between icon and text */
-}
-
-.button-text {
-  font-size: 18px; /* Adjust size smaller than icon */
-  line-height: 20px; /* Ensures it visually aligns well */
-}
-
-
 /* dashboard */
 
 .document-view-box{
-  width: 750px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: top;
-  align-items: center;
   background-color: #E8EDF5;
   border-radius: 4px;
   overflow-y: auto;
 }
 
 .document-titles{
-  width: 100%;
-  height: 36px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   border-bottom-width: 1px;
   border-color: #E3E3E3;
-  padding-top: 5px;
-  padding-left: 20px;
-  padding-right: 200px;
+  padding-top: 10px;
   font-size: 11pt;
-  font-weight: 400;
+  font-weight: 450;
 }
 
 .document-list-box{
@@ -231,7 +185,6 @@
   align-items: space-between;
   border-width: 1px;
   border-color: #E3E3E3;
-  padding-top: 5px;
-  padding-left: 20px;
   font-size: 11pt;
+  padding-top: 5px;
 }

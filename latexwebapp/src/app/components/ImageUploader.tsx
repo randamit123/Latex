@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { newImage, createImage, createLatex, newLatex } from "../queries/insert";
+// import { newImage, createImage } from "../queries/insert";
 import { useSession } from "next-auth/react";
 import "/src/app/assets/homepage.css";
 import Image from "next/image";
@@ -19,15 +19,11 @@ export default function ImageUploader() {
     setIsMounted(true);
   }, []);
 
-  if (status === 'loading' || !isMounted) {
+  if (!isMounted) {
     return <div>Loading...</div>;
   }
 
-  if (!session?.user) {
-    return <div>Please log in to upload images.</div>;
-  }
-
-  function readFile(file: File) {
+  function readFile(file) {
     setSelectedFile(file);
 
       const reader = new FileReader();
@@ -46,37 +42,25 @@ export default function ImageUploader() {
       }
   };
 
-  const imageHandler = async (latexCode: string, imageUrl: string) => {
+  const imageHandler = async (imageUrl: string) => {
     if (!session || !selectedFile) {
-        console.error("User not authenticated or no file selected.");
-        return;
+      console.error("User not authenticated or no file selected.");
+      return;
     }
 
-    console.log("Session User ID:", session.user?.id);
-    // create new Latex record
-    const newLatex: Omit<newLatex, "id"> = {
-      userId: String(session.user?.id),
-      latexCode: latexCode,
-    };
-
+    //const newImg: newImage = {
+    //   user_id: 1, // TODO: update to get actual UID
+    //   user_email: session?.user?.email || "",
+    //   image_url: imageUrl,
+    //   file_size: selectedFile.size,
+    //   file_type: selectedFile.type,
+    // };
 
     try {
-        const insertedLatex = await createLatex(newLatex);
-
-        // Create new Image record using inserted latexId
-        console.log(String(session.user?.id))
-        const newImg: Omit<newImage, "id"> = {
-            userId: String(session.user?.id),
-            latexId: insertedLatex.id,
-            imageName: selectedFile.name,
-            fileType: selectedFile.type,
-            fileSize: selectedFile.size,
-        };
-
-        await createImage(newImg);
-        console.log("Image metadata saved successfully.");
+    //  await createImage(newImg);
+      console.log("Image metadata saved successfully.");
     } catch (error) {
-        console.error("Error saving image metadata:", error);
+      console.error("Error saving image metadata:", error);
     }
   };
 
@@ -99,7 +83,7 @@ export default function ImageUploader() {
         setResponse(data.result);
         setImageSrc(previewSrc);
 
-        await imageHandler(data.result, data.image_url);
+        await imageHandler(data.image_url);
         } else {
             throw new Error("Invalid response format from the server.");
         }
@@ -111,7 +95,7 @@ export default function ImageUploader() {
     }
   };
 
-  function dropHandler(e: React.DragEvent<HTMLDivElement>) {
+  function dropHandler(e) {
     console.log("File(s) dropped");
 
     // Prevent default behavior (Prevent file from being opened)
@@ -119,18 +103,14 @@ export default function ImageUploader() {
 
     // Use DataTransferItemList interface to access the file(s)
     [...e.dataTransfer.items].forEach((item, i) => {
-        // If dropped items aren't files, reject them
-        if (item.kind === "file" && item.type.match("^image/")) {
-            const file = item.getAsFile();
-            if (file) { // check file is not null
-                console.log(`… file[${i}].name = ${file.name}`);
-                readFile(file); // use file safely
-            } else {
-                console.error(`${i} could not be converted to a file.`);
-            }
+      // If dropped items aren't files, reject them
+      if (item.kind === "file" && item.type.match("^image/")) {
+        const file = item.getAsFile();
+        console.log(`… file[${i}].name = ${file.name}`);
+        readFile(file)	
         }
-    });
-  }
+      });
+    }
 
   function dragOverHandler(e: React.DragEvent) {
     console.log("File(s) in drop zone");
@@ -152,21 +132,14 @@ export default function ImageUploader() {
  
   return (
     <>
-    <div className="homepage-box">
+    <div className="homepage-box w-screen overflow-y-auto">
     {isMounted &&
         (response && imageSrc ? (
           <div className="display-box">
             <div className="display-image-box">
               <div className="display-title-box">
-                <button onClick={navBack} className="outlined-button">
-                  <Image
-                    className="icon"
-                    alt="back"
-                    src="/back_arrow_icon.svg"
-                    width={20}
-                    height={25}
-                  />
-                  <span className="button-text">Back</span>
+                <button onClick={navBack}>
+                  <Image className="homepage2" alt="back" src="/arrow-left-dark.svg" width={36} height={48}/>
                 </button>
                 <p className="homepage-header">Your Results</p>
                 <button onClick={navBack}>
@@ -228,14 +201,14 @@ export default function ImageUploader() {
           </div>
         ) : (
           <>
-        <div className="upload-box">
+        <div className="upload-box w-7/12 max-w-[540px] max-h-[620px]">
           <div className="title-box">
             <h1 className='homepage-header'>Upload</h1>
           </div>
         
           {selectedFile ? (
 	          <>
-            <div className="drag-file h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
+            <div className="drag-file w-11/12 h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
               <div className="flex justify-center align-center py-6">
                 <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59}/>
               </div>
@@ -253,17 +226,27 @@ export default function ImageUploader() {
               <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
             </div>
            
-            <div className="uploaded-file">
-              <div className="uploaded-header">
+            <div className="uploaded-file w-11/12">
+              <div className="uploaded-header py-3">
                <p>Uploaded</p>
               </div>
-              <div className="file-item">
+              <div className="file-item w-full">
                 <p>{selectedFile.name}</p>
                 <button onClick={removeFile}>
                   <Image className="homepage2" alt="homepage1" src="/Bin_icon.png" width={10} height={10}/>
                 </button>
               </div>
             </div>
+
+            {previewSrc && (
+              <div className="w-auto max-w-11/12 h-full max-h-[48px] border border-gray-200 rounded-lg overflow-hidden mb-4">
+                <img
+                  src={previewSrc}
+                  alt="Preview"
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            )}
             </>
           ) : (
             <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
