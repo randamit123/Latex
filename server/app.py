@@ -127,7 +127,11 @@ def predict():
             symbol_images, _ = segment_symbols(img)
 
             if not symbol_images:
-                return jsonify({"error": "No symbols detected in the image."}), 400
+                return jsonify(
+                    {
+                        "error": "No symbols detected in the image. Please try uploading a different image."
+                    }
+                ), 400
 
             # prediction for each segmented symbol
             predictions = []
