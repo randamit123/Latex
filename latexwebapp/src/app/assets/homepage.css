@@ -18,7 +18,10 @@
   padding-top: 65px;
 }
 
-.upload-box{
+.upload-box {
+  @apply flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md p-4 gap-4;
+}
+/* .upload-box{
   display: flex;
   flex-direction: column;
   width: 540px;
@@ -30,7 +33,7 @@
   gap: 25px;
   text-align: center;
   background-color: white;
-}
+} */
 
 .display-box{
   display: flex;

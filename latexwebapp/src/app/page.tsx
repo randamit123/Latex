@@ -79,9 +79,11 @@ export default async function LandingPage() {
             </div>
 
             {/* Reviews Section */}
-            <div className="reviews-box">
+            {/* <div className="reviews-box">
               <h1 className="rev-header">What our users are saying</h1>
             </div>
+
+            <Image className="reviews-box2" src="/reviews.png" alt="reviews" height={300} width={300} /> */}
 
             {/* Get Started Section */}
             <div className="get-started-box">
