@@ -2,6 +2,7 @@ import { auth } from "./auth/NextAuth";
 import { redirect } from "next/navigation";
 import { GoogleSignInButton } from "./components/auth/GoogleSignInButton";
 import SignUpForFree from "./components/auth/SignUpForFree";
+import Reviews from "./components/layout/Reviews";
 import "./assets/landingpage.css";
 import Image from "next/image";
 import "./layout.tsx";
@@ -67,7 +68,9 @@ export default async function LandingPage() {
       <div className="reviews-box">
         <h1 className="rev-header">What our users are saying</h1>
       </div>
-      <Image className="reviews-box2" src="/reviews.png" alt="reviews" height={300} width={300} />
+      <div className="reviews-box2">
+        <Reviews />
+      </div>
       <div className="get-started-box">
         <div className="start-1">
           <h1 className="start1-text">Ready to try PaperLeaf?</h1>
