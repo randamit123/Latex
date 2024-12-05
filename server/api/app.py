@@ -7,27 +7,54 @@ import numpy as np
 from tensorflow.keras.models import load_model
 import cv2
 import shutil
-from utils.openai_helper import openai_helper
+from dotenv import load_dotenv
+from openai import OpenAI
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": ["https://latex-hazel.vercel.app"]}})
 
 # config
 UPLOAD_FOLDER = "uploaded_images"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-model_path = "handwritten_math_symbols_CNN_model.keras"  # model
+model_path = "../handwritten_math_symbols_CNN_model.keras"  # model
 
 SEGMENTED_DIR = "segmented_symbols"  # temp dir to store segmented images
 
 # data_dir = "/Users/ARand/Desktop/LatexProject/data/extracted_images" # data copy to generate label_names
 
-with open("label_names.txt", "r") as f:
+with open("../label_names.txt", "r") as f:
     label_names = [line.strip() for line in f]
 
 
 model = load_model(model_path)
+
+
+def openai_helper(message_text, image_url):
+    # load env and connect client
+    load_dotenv()
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    # Message to send
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": f"{message_text}"},
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": image_url,
+                    },
+                },
+            ],
+        }
+    ]
+
+    # API call
+    completion = client.chat.completions.create(model="gpt-4o", messages=messages)
+    return completion.choices[0].message
 
 
 def segment_symbols(image):
@@ -127,11 +154,7 @@ def predict():
             symbol_images, _ = segment_symbols(img)
 
             if not symbol_images:
-                return jsonify(
-                    {
-                        "error": "No symbols detected in the image. Please try uploading a different image."
-                    }
-                ), 400
+                return jsonify({"error": "No symbols detected in the image."}), 400
 
             # prediction for each segmented symbol
             predictions = []
@@ -166,5 +189,5 @@ def predict():
         return jsonify({"error": "Invalid file type."}), 400
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=5001, debug=True)

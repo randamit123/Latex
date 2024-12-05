@@ -14,6 +14,7 @@ export default function ImageUploader() {
   const [response, setResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -95,17 +96,19 @@ export default function ImageUploader() {
       });
       const data = await res.json();
 
-      if (data.result) {
+      if (res.ok && data.result) {
         setResponse(data.result);
         setImageSrc(previewSrc);
 
         await imageHandler(data.result, data.image_url);
-        } else {
-            throw new Error("Invalid response format from the server.");
+        } else if (data.error) { // backend errors
+          setError(data.error);
+        } else { // unexpected errors/response
+          setError("An unexpected error occurred. Please try again.");
         }
-       setImageSrc(previewSrc);
     } catch (error) {
         console.error("Error:", error);
+        setError("Failed to connect to the server. Please try again later.");
     } finally {
         setIsLoading(false);
     }
@@ -153,7 +156,7 @@ export default function ImageUploader() {
   return (
     <>
     <div className="homepage-box">
-    {isMounted &&
+      {isMounted &&
         (response && imageSrc ? (
           <div className="display-box">
             <div className="display-image-box">
@@ -178,6 +181,8 @@ export default function ImageUploader() {
                  src={previewSrc || ""}
                  alt="Uploaded"
                  className="w-auto max-w-2xl h-52 object-cover rounded-lg border-gray-300 border-2"
+                 width={300}
+                 height={0}
                 />
               </div>
             </div>
@@ -234,56 +239,57 @@ export default function ImageUploader() {
           </div>
         
           {selectedFile ? (
-	          <>
-            <div className="drag-file h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
-              <div className="flex justify-center align-center py-6">
-                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59}/>
-              </div>
-              <div>
-                <strong>Drag & drop files or </strong>
-                <input
-                 type="file"
-                 accept="image/*"
-                 onChange={handleFileChange}
-                 style={{display:"none"}}
-                 id="fileUpload"
-                 />
-                <label htmlFor="fileUpload" style={{color:"#4A789C", textDecoration:"underline"}}>Browse</label>
-              </div>
-              <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
-            </div>
-           
-            <div className="uploaded-file">
-              <div className="uploaded-header">
-               <p>Uploaded</p>
-              </div>
-              <div className="file-item">
-                <p>{selectedFile.name}</p>
-                <button onClick={removeFile}>
-                  <Image className="homepage2" alt="homepage1" src="/Bin_icon.png" width={10} height={10}/>
-                </button>
-              </div>
-            </div>
-            </>
-          ) : (
-            <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
-              <div className="flex justify-center align-center py-6">
-                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59} />
-              </div>
-              <div>
-                <strong>Drag & drop files or </strong>
-                <input
-                 type="file"
-                 accept="image/*"
-                 onChange={handleFileChange}
-                 style={{display:"none"}}
-                 id="fileUpload"
-                 />
-                <label htmlFor="fileUpload" style={{color:"#4A789C", textDecoration:"underline"}}>Browse</label>
-              </div>
-              <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
-            </div>
-          )}
+                <>
+                  {previewSrc && (
+                    <div className="w-2/3 bg-white border border-gray-200 rounded-lg p-4 mb-4 mx-auto relative" style={{ aspectRatio: '4 / 3' }}>
+                      <Image
+                        src={previewSrc}
+                        alt="Preview"
+                        className="object-contain rounded-lg"
+                        width={300}
+                        height={0}
+                      />
+                    </div>
+                  )}
+                  <div className="uploaded-file">
+                    <div className="uploaded-header">
+                      <p>Uploaded</p>
+                    </div>
+                  <div className="file-item">
+                    <p>{selectedFile.name}</p>
+                    <button onClick={removeFile}>
+                      <Image
+                        className="homepage2"
+                        alt="Delete"
+                        src="/Bin_icon.svg"
+                        width={20}
+                        height={20}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
+                  <div className="flex justify-center align-center py-6">
+                    <Image alt="homepage1" src="/Upload_icon.svg" height={60} width={59} />
+                  </div>
+                  <div>
+                    <strong>Drag & drop files or </strong>
+                    <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{display:"none"}}
+                    id="fileUpload"
+                    />
+                    <label htmlFor="fileUpload" style={{color:"#4A789C", textDecoration:"underline"}}>Browse</label>
+                  </div>
+                  <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
+                </div>
+              </>
+            )}
 
             <button
               className="flex items-center justify-center gap-3 bg-[#2194F2] text-white border border-grey-300 rounded-lg px-6 py-3 text-sm font-medium shadow-md transition duration-200 hover:bg-white hover:text-[#2194F2] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
@@ -295,6 +301,20 @@ export default function ImageUploader() {
           </>
         ))}
     </div>
+    {error && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h2 className="text-xl font-semibold mb-4">Error</h2>
+            <p className="mb-4">{error}</p>
+            <button
+              onClick={() => setError(null)}
+              className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
