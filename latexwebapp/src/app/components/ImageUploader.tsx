@@ -103,7 +103,7 @@ export default function ImageUploader() {
         } else {
             throw new Error("Invalid response format from the server.");
         }
-       setImageSrc(previewSrc);
+        setImageSrc(previewSrc);
     } catch (error) {
         console.error("Error:", error);
     } finally {
@@ -178,6 +178,8 @@ export default function ImageUploader() {
                  src={previewSrc || ""}
                  alt="Uploaded"
                  className="w-auto max-w-2xl h-52 object-cover rounded-lg border-gray-300 border-2"
+                 width={300}
+                 height={0}
                 />
               </div>
             </div>
