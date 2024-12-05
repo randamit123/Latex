@@ -89,7 +89,7 @@ export default function ImageUploader() {
     formData.append("image", selectedFile);
 
     try {
-        const res = await fetch("https://server-delta-wheat.vercel.app/predict", {
+        const res = await fetch("http://localhost:5001/predict", {
         method: "POST",
         body: formData,
       });
@@ -237,7 +237,7 @@ export default function ImageUploader() {
 	          <>
             <div className="drag-file h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
               <div className="flex justify-center align-center py-6">
-                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59}/>
+                <Image alt="homepage1" src="/Upload_icon.svg" height={60} width={59}/>
               </div>
               <div>
                 <strong>Drag & drop files or </strong>
@@ -260,7 +260,7 @@ export default function ImageUploader() {
               <div className="file-item">
                 <p>{selectedFile.name}</p>
                 <button onClick={removeFile}>
-                  <Image className="homepage2" alt="homepage1" src="/Bin_icon.png" width={10} height={10}/>
+                  <Image className="homepage2" alt="homepage1" src="/Bin_icon.svg" width={10} height={10}/>
                 </button>
               </div>
             </div>
@@ -268,7 +268,7 @@ export default function ImageUploader() {
           ) : (
             <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
               <div className="flex justify-center align-center py-6">
-                <Image alt="homepage1" src="/Upload_icon.png" height={60} width={59} />
+                <Image alt="homepage1" src="/Upload_icon.svg" height={60} width={59} />
               </div>
               <div>
                 <strong>Drag & drop files or </strong>

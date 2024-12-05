@@ -19,7 +19,7 @@ export default async function LandingPage() {
         <Image
           className="landing1"
           alt="landing1.1"
-          src="/landingphoto1.1.png"
+          src="/landingphoto1.1.svg"
           height={400}
           width={400}
         />
@@ -44,22 +44,22 @@ export default async function LandingPage() {
         <div className="stepBoxes">
           {[
             {
-              src: "/landing2.1.png",
+              src: "/landing2.1.svg",
               title: "Write the equation",
               description: "Use your mouse, stylus, or touch screen to write the equation",
             },
             {
-              src: "/landing2.2.png",
+              src: "/landing2.2.svg",
               title: "Take a photo",
               description: "If you're using a phone or tablet, just take a photo of the writing",
             },
             {
-              src: "/landing2.3.png",
+              src: "/landing2.3.svg",
               title: "Upload the image",
               description: "If you're using a computer, you can upload an image file",
             },
             {
-              src: "/landing2.4.png",
+              src: "/landing2.4.svg",
               title: "Get the LaTeX",
               description: "PaperLeaf will convert your handwritten math to LaTeX in seconds",
             },
@@ -92,6 +92,7 @@ export default async function LandingPage() {
         <div className="start-button">
           <SignUpForFree />
         </div>
+      </div>
     </div>
   );
 }
