@@ -33,7 +33,6 @@ export default async function LandingPage() {
             <SignUpForFree />
           </div>
         </div>
-      </div>
 
       {/* How It Works Section */}
       <div className="how-it-works">
@@ -77,20 +76,20 @@ export default async function LandingPage() {
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Reviews Section */}
-      <div className="reviews-box">
-        <h1 className="rev-header">What our users are saying</h1>
-      </div>
+        {/* Reviews Section */}
+        <div className="reviews-box">
+          <h1 className="rev-header">What our users are saying</h1>
+        </div>
 
-      {/* Get Started Section */}
-      <div className="get-started-box">
-        <h1 className="start1-text">Ready to try PaperLeaf?</h1>
-        <Image src="/Logo.svg" alt="Logo" height={80} width={80} />
-        <p>Start turning your handwritten math into LaTeX today.</p>
-        <div className="start-button">
-          <SignUpForFree />
+        {/* Get Started Section */}
+        <div className="get-started-box">
+          <h1 className="start1-text">Ready to try PaperLeaf?</h1>
+          <Image src="/Logo.svg" alt="Logo" height={80} width={80} />
+          <p>Start turning your handwritten math into LaTeX today.</p>
+          <div className="start-button">
+            <SignUpForFree />
+          </div>
         </div>
       </div>
     </div>
