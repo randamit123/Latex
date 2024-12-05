@@ -4,12 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* General Container */
 .container {
   padding: 0 30px; 
-  max-width: 1200px;
+  max-width: 1200px; 
   margin: 0 auto; 
 }
 
+/* Global Styling */
 body {
   font-family: 'Inria Sans', sans-serif;
   margin: 0;
@@ -26,7 +28,7 @@ body {
 .title-box {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Align to the left on small screens */
+  justify-content: flex-start;
   align-items: center;
   gap: 20px;
   padding-top: 150px;
@@ -36,7 +38,7 @@ body {
 
 .landing1 {
   height: 300px;
-  width: 100%; /* Scale dynamically */
+  width: 100%;
   max-width: 480px;
   border-radius: 10px;
   margin: 10px 0;
@@ -79,7 +81,7 @@ body {
 
 .stepBoxes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusts based on screen size */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
@@ -128,15 +130,16 @@ body {
 .get-started-box {
   margin-top: 150px;
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  text-align: center; 
-  gap: 20px; 
+  text-align: center;
+  gap: 20px;
 }
 
 .start-1 {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
 }
@@ -152,7 +155,6 @@ body {
 
 /* Responsive Adjustments */
 @media (max-width: 860px) {
-
   .title-box {
     justify-content: center;
   }
@@ -166,7 +168,11 @@ body {
   }
 
   .stepBoxes {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
+  }
+
+  .get-started-box {
+    padding: 0 20px; /* Add padding for smaller screens */
   }
 }
 
@@ -177,5 +183,11 @@ body {
 
   .intro-explanation {
     font-size: 10pt;
+  }
+
+  .landing1 {
+    height: auto; /* Scale dynamically */
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
