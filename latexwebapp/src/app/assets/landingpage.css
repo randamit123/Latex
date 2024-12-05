@@ -28,6 +28,7 @@
     font-weight: 600;
     padding-bottom: 10px;
     width: 450px;
+    z-index: 1000;
 }
 
 .intro-explanation{
@@ -106,7 +107,7 @@
     font-size: 25pt;
     font-weight: 600;
     padding-bottom: 0px; 
-    margin-bottom: 1rem 
+    margin-bottom: 0rem 
 }
 
 .review-image{
@@ -142,22 +143,32 @@
 .review-date {
   font-size: 0.9rem;
   color: #888;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .review-text {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
+  margin-top: 10px;
   color: #000;
 }
 
 .review-rating {
   color: #2194F2; 
   font-size: 1.2rem;
+  margin-bottom: 0rem;
+  margin: 8px 0;
+  z-index: 1;
 }
 
 .star {
     color: #2194F2; 
+    width: 20px; 
+    height: auto; 
+    margin-right: 2px; 
+    display: inline-block;
+    vertical-align: middle; 
+    /* filter: invert(31%) sepia(91%) saturate(746%) hue-rotate(189deg) brightness(102%) contrast(98%); */
   }
 
 
@@ -167,7 +178,7 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
-    padding-top: 130px;
+    padding-top: 75px;
   }
 
 .start-1 {

@@ -21,7 +21,13 @@ const reviewsData = [
             <h2 className="review-name">{review.name}</h2>
             <p className="review-date">{review.date}</p>
             <div className="review-rating">
-            {Array.from({ length: review.rating }).map((_, i) => (<span key={i} className="star">⭐</span>))}
+            {Array.from({ length: review.rating }).map((_, i) => (    
+                <img
+                  key={i}
+                  src="/review_star.svg"
+                  alt="star"
+                  className="star"
+                />))}
             <p className="review-text">{review.text}</p>
             </div>
           </div>
