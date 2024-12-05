@@ -3,7 +3,8 @@ import {
   pgTable,
   text,
   primaryKey,
-  integer
+  integer,
+  boolean,
 } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 import type { AdapterAccountType } from "next-auth/adapters"
@@ -52,9 +53,11 @@ export const sessions = pgTable("session", {
 })
 
 export const referrals = pgTable("referrals", {
+    descriptor: integer("descriptor").notNull(),
     userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
-    referralEmail: text("referral_email").unique().notNull(),
-    referralCode: text("referral_code"),
+    referralEmail: text("referral_email").unique(),
+    referralCode: text("referral_code").$defaultFn(() => self.crypto.randomUUID()),
+    referralStatus: boolean("referral_status"),
 })
 
 export const images = pgTable("images", {
