@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Link from "next/link";
 
 export default function Referral() {
     const [email, setEmail] = useState(''); // initialize email to ''
@@ -37,6 +38,11 @@ export default function Referral() {
                     </button>
                 </form>
                 {status && <p className="mt-4 text-green-600 text-center">{status}</p>} {/* Show status message if exists */}
+                <div className="text-right mt-2">
+                <Link href="/enter-code" className="text-sm text-blue-500 hover:underline">
+                    Have a code?
+                </Link>
+                </div>
             </div>
         </div>
     );
