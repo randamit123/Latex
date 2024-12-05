@@ -152,7 +152,7 @@ export default function ImageUploader() {
  
   return (
     <>
-    <div className="homepage-box">
+    <div className="homepage-box w-screen overflow-y-auto">
     {isMounted &&
         (response && imageSrc ? (
           <div className="display-box">
@@ -228,14 +228,14 @@ export default function ImageUploader() {
           </div>
         ) : (
           <>
-        <div className="upload-box">
+        <div className="upload-box w-7/12 max-w-[540px] max-h-[620px]">
           <div className="title-box">
             <h1 className='homepage-header'>Upload</h1>
           </div>
         
           {selectedFile ? (
 	          <>
-            <div className="drag-file h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
+            <div className="drag-file w-11/12 h-52" onDrop={dropHandler} onDragOver={dragOverHandler}>
               <div className="flex justify-center align-center py-6">
                 <Image alt="homepage1" src="/Upload_icon.svg" height={60} width={59}/>
               </div>
@@ -253,17 +253,27 @@ export default function ImageUploader() {
               <p style={{color:"Gray"}}>Supported formats: PNG, JPG, JPEG</p>
             </div>
            
-            <div className="uploaded-file">
-              <div className="uploaded-header">
+            <div className="uploaded-file w-11/12">
+-              <div className="uploaded-header py-3">
                <p>Uploaded</p>
               </div>
-              <div className="file-item">
+              <div className="file-item w-full">
                 <p>{selectedFile.name}</p>
                 <button onClick={removeFile}>
                   <Image className="homepage2" alt="homepage1" src="/Bin_icon.svg" width={10} height={10}/>
                 </button>
               </div>
             </div>
+
+            {previewSrc && (
+              <div className="w-auto max-w-11/12 h-full max-h-[48px] border border-gray-200 rounded-lg overflow-hidden mb-4">
+                <img
+                  src={previewSrc}
+                  alt="Preview"
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            )}
             </>
           ) : (
             <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
