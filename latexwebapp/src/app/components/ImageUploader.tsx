@@ -155,7 +155,7 @@ export default function ImageUploader() {
  
   return (
     <>
-    <div className="homepage-box">
+    <div className="homepage-box w-screen overflow-y-auto">
       {isMounted &&
         (response && imageSrc ? (
           <div className="display-box">
@@ -251,11 +251,11 @@ export default function ImageUploader() {
                       />
                     </div>
                   )}
-                  <div className="uploaded-file">
-                    <div className="uploaded-header">
+                  <div className="uploaded-file w-11/12">
+                    <div className="uploaded-header py-3">
                       <p>Uploaded</p>
                     </div>
-                  <div className="file-item">
+                    <div className="file-item w-full">
                     <p>{selectedFile.name}</p>
                     <button onClick={removeFile}>
                       <Image
@@ -271,7 +271,7 @@ export default function ImageUploader() {
               </>
             ) : (
               <>
-                <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
+                <div className="drag-file h-96 w-10/12" onDragOver={dragOverHandler} onDrop={dropHandler}>
                   <div className="flex justify-center align-center py-6">
                     <Image alt="homepage1" src="/Upload_icon.svg" height={60} width={59} />
                   </div>
