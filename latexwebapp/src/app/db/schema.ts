@@ -56,7 +56,7 @@ export const referrals = pgTable("referrals", {
     descriptor: integer("descriptor").notNull(),
     userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
     referralEmail: text("referral_email").unique(),
-    referralCode: text("referral_code").$defaultFn(() => self.crypto.randomUUID()),
+    referralCode: text("referral_code").$defaultFn(() => crypto.randomUUID()),
     referralStatus: boolean("referral_status"),
 })
 

@@ -1,14 +1,20 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { insertReferralCode } from '../actions'
 
 export default function EnterCode() {
   const [code, setCode] = useState("");
+  const [status, setStatus] = useState<string|null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    console.log(`Submitted referral code: ${code}`);
-    // NEHA add your logic here
+    setStatus('Validating code!');
+
+    const result = await insertReferralCode(code);
+    setTimeout(() => {
+      setStatus(result);
+    }, 1000);
   };
 
   return (
@@ -38,6 +44,7 @@ export default function EnterCode() {
             Submit
           </button>
         </form>
+        {status && <p className="mt-4 text-green-600 text-center">{status}</p>} {/* Show status message if exists */}
         <div className="text-right mt-2">
           <Link href="/referrals" className="text-sm text-blue-500 hover:underline">
             Back to referrals
