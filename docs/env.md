@@ -61,8 +61,10 @@ AUTH_GOOGLE_SECRET="<your-google-client-secret>"
 3. **Set Environment Variable:**
    - Set the following variable in your `.env` file:
      ```plaintext
-     OPENAI_API_KEY=<your-openai-api-key>
+     OPENAI_API_KEY="<your-openai-api-key>"
      ```
+     
+Note: You may need to set up billing and pay to make API calls.
 
 ---
 
