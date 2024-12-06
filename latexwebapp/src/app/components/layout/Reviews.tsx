@@ -1,13 +1,13 @@
 const reviewsData = [
     {
       name: "Jane Smith",
-      date: "May 5, 2023",
+      date: "Dec 2, 2024",
       text: "I love PaperLeaf! It's so much faster than typing out all my equations. I use it all the time for my physics homework.",
       rating: 5,
     },
     {
       name: "Mike Johnson",
-      date: "April 12, 2023",
+      date: "November 29, 2024",
       text: "I've been using PaperLeaf for a few weeks now and I'm really impressed with how accurate it is. It's saved me a lot of time when writing up my math notes.",
       rating: 5,
     },
