@@ -10,7 +10,7 @@ export default async function Home() {
         redirect("/");
       }
 
-      if (session.user?.id != undefined && await getLatexCount(session.user?.id) > 10 && await getReferralCount(session.user?.id) == 0) {
+      if (session.user?.id != undefined && await getLatexCount(session.user?.id) >= 10 && await getReferralCount(session.user?.id) == 0) {
         redirect("/referrals-usage");
       }
 
