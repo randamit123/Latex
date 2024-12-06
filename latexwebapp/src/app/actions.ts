@@ -2,14 +2,9 @@
 import { generateReferral, insertReferral } from './queries/referral'
 
 export async function getReferralCode(email: string)
-{
-    // const emailData = {
-        // email: data.get('email'),
-    // };
-    
-    const emailInput = email; // emailData.email;
-    // console.log("curState: ");
-    // console.log(emailInput);
+{   
+    const emailInput = email;
+
     if (emailInput != null && typeof emailInput == "string")
     {
         try {
@@ -17,15 +12,12 @@ export async function getReferralCode(email: string)
             if (refCode == "Invalid session" || refCode == "Error: User already exists!" || refCode == "Error: Email already referred!" || refCode == "Error: Email referral request already sent!")
                 return refCode;
             else {
-                // console.log(refCode);
                 return `Referral success!\nCode: ${refCode}`;
             }
         } catch(error) {
             return `${error}`;
         }
     } else { return "Error: Invalid request!"; }
-
-    // console.log(curState);
 }
 
 export async function insertReferralCode(code: string)

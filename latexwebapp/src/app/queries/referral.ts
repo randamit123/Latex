@@ -56,10 +56,6 @@ export async function generateReferral(email: string)
 
 export async function insertReferral(code: string)
 {
-    // const tryEmail = await latexdb.select().from(users).where(eq(users.email, arg.referralEmail)).catch((err) => {
-      // return { message: "not referred" };  
-    // })
-
     if (session == null || session.user?.id == undefined)
         return "Invalid session";
 
@@ -84,11 +80,4 @@ export async function insertReferral(code: string)
     ));
 
     return "Success!";
-    
-    // try
-    // {
-        // await latexdb.insert(referrals).values(arg);
-    // } catch(error) {
-       // return { message: "Already referred! "};
-    // }
 }
