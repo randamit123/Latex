@@ -95,6 +95,11 @@ export default function Referral() {
     const [status, setStatus] = useState<string | null>(null);
     const [code, setCode] = useState('');
 
+    async function Email(code: string)
+    {
+        // AMIT add your code here
+    }
+
     // const setCodeWithEmail = setCode.bind(email, refEmail);
     // const { data } = useFormStatus();
 
@@ -112,8 +117,8 @@ export default function Referral() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-                <h1 className="text-3xl font-extrabold text-center mb-6">Referral Form</h1>
-                <h2 className="text-xl font-bold mb-4 text-center">Refer a Friend to PaperLeaf</h2>
+                <h1 className="text-3xl font-extrabold text-center mb-6">Thank you for using PaperLeaf!</h1>
+                <h2 className="text-xl font-bold mb-4 text-center">Refer a Friend to Keep Using This Service</h2>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <label htmlFor="email" className="text-lg font-medium">Email</label>
                     <input
