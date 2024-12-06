@@ -21,19 +21,6 @@
 .upload-box {
   @apply flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md p-4 gap-4;
 }
-/* .upload-box{
-  display: flex;
-  flex-direction: column;
-  width: 540px;
-  height: 620px;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  justify-content: top;
-  align-items: center;
-  gap: 25px;
-  text-align: center;
-  background-color: white;
-} */
 
 .display-box{
   display: flex;
@@ -194,14 +181,6 @@
   line-height: 20px; /* Ensures it visually aligns well */
 }
 
-
-/* dashboard */
-
-/*.homepage-header img {
-  margin-left: 8px; 
-  width: 45px;     
-  height: 45px;    
-} */
 
 .document-view-box{
   width: 750px;

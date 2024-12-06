@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from "next/link";
+import { getReferralCode } from '../actions'
 
 export default function Referral() {
     const [email, setEmail] = useState(''); // initialize email to ''
@@ -13,13 +14,24 @@ export default function Referral() {
             setStatus(`Code sent to ${email}`);
         }, 1000);
     };
+    
+    const handleSubmit = async(e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('Creating code!');
+
+        const refCode = await getReferralCode(email);
+        setTimeout(() => {
+            setStatus(refCode);
+            // setStatus(`Code sent to ${email}`);
+        }, 1000);
+    };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h1 className="text-3xl font-extrabold text-center mb-6">Referral Form</h1>
                 <h2 className="text-xl font-bold mb-4 text-center">Refer a Friend to PaperLeaf</h2>
-                <form onSubmit={submission} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <label htmlFor="email" className="text-lg font-medium">Email</label>
                     <input
                         id="email"

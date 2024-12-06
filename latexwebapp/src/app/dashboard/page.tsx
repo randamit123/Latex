@@ -2,6 +2,7 @@ import { auth } from "../auth/NextAuth";
 import { redirect } from "next/navigation";
 import { selectImagesWithLatex } from "../queries/select";
 import { selectImage } from "../db/schema";
+import { getLatexCount } from "../queries/referral"
 
 export default async function Dashboard() {
     const session = await auth();
@@ -9,6 +10,10 @@ export default async function Dashboard() {
     if (!session || !session?.user) {
         redirect("/");
     }
+
+    // if (session.user?.id != undefined && await getLatexCount(session.user?.id) >= 10) {
+    //     redirect("/referrals");
+    // }
 
     const userId = session.user?.id;
     const userImages: selectImage[] = (await selectImagesWithLatex(userId!));
