@@ -133,4 +133,31 @@ The database is hosted on [Neon](https://console.neon.tech).
 
 ---
 
-## Deployment
+## Next Steps
+
+1. **Deployment**  
+   - Use **Docker** to containerize both the frontend and backend services.  
+   - Use **Kubernetes** for orchestration and scaling.  
+   - Deploy the frontend on **Vercel** for fast and reliable hosting easily integratable with Next.js.  
+   - Deploy the backend on **AWS Lambda**.  
+   - Set up a **CI/CD pipeline** to automate testing, building, and deployment for both services.
+
+2. **Improve the Model**  
+   - The current model's weights got messed up and are producing incorrect outputs (gibberish).  
+     - This issue isn't critical as per the professor’s feedback since it isn’t graded.  
+   - Resolve computational issues to successfully train the Vision Transformer (ViT).  
+
+3. **Refine Segmentation Logic**  
+   - The segmentation logic in the backend works well but occasionally includes unintended artifacts.  
+   - Improve its precision to eliminate scraps being picked up.
+
+4. **Expand Upload Options**  
+   - Extend functionality to support file uploads in addition to image uploads.
+
+5. **Store Images in Database**  
+   - Implement functionality to store the images themselves in the database, not just their metadata.
+
+6. **Integrate LLM Helper**  
+   - Once the model is functional, integrate a language model (LLM) helper to:  
+     - Validate the LaTeX output and flag any nonsensical results.  
+     - Prompt users to upload a clearer photo or try again when errors are detected.
