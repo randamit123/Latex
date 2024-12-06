@@ -1,14 +1,32 @@
 import { latexdb } from "../db/index"
-import { users, referrals } from "../db/schema"
+import { users, referrals, latex } from "../db/schema"
 import { eq, and } from "drizzle-orm"
+import { auth } from "../auth/NextAuth"
 
 export type newReferral = typeof referrals.$inferInsert
 
-export async function getReferralCode(id: string, email: string)
+const session = await auth();
+
+export async function getLatexCount(id: string)
 {
+    const result = await latexdb.$count(latex, eq(latex.userId, id));
+    return result;
+}
+
+export async function getReferralCount(id: string)
+{
+    const result = await latexdb.$count(referrals, eq(referrals.userId, id));
+    return result;
+}
+
+export async function generateReferral(email: string)
+{
+    if (session == null || session.user?.id == undefined)
+        return "Invalid session";
+
     const toInsert: newReferral = {
         descriptor: 1,
-        userId: id,
+        userId: session.user?.id,
         referralEmail: email,
         referralStatus: false,
     }
@@ -16,7 +34,7 @@ export async function getReferralCode(id: string, email: string)
     const user_count = await latexdb.$count(users, eq(users.email, email));
 
     if (user_count != 0) {
-        return { message: "Already exists!" };
+        return "Error: User already exists!";
     }
 
     const ref_count = await latexdb.$count(referrals, and(
@@ -25,17 +43,25 @@ export async function getReferralCode(id: string, email: string)
     ));
 
     if (ref_count == 0) {
-        await latexdb.insert(referrals).values(toInsert);
+        try {
+            const [ref_code] = await latexdb.insert(referrals).values(toInsert).returning({ code: referrals.referralCode });
+            return ref_code.code;
+        } catch(error) {
+            return "Error: Email referral request already sent!";
+        }
     } else {
-        return { message: "Already referred!" };
+        return "Error: Email already referred!";
     }
 }
 
-export async function insertReferral(id: string, code: string)
+export async function insertReferral(code: string)
 {
     // const tryEmail = await latexdb.select().from(users).where(eq(users.email, arg.referralEmail)).catch((err) => {
       // return { message: "not referred" };  
     // })
+
+    if (session == null || session.user?.id == undefined)
+        return "Invalid session";
 
     const ref_code_count = await latexdb.$count(referrals, and(
         eq(referrals.descriptor, 1),
@@ -43,12 +69,12 @@ export async function insertReferral(id: string, code: string)
     ));
 
     if (ref_code_count == 0) {
-        return { message: "invalid referral code" };
+        return "Error: Invalid referral code!";
     }
 
     const toInsert: newReferral = {
         descriptor: 2, 
-        userId: id,
+        userId: session.user?.id,
         referralCode: code,
     }
     await latexdb.insert(referrals).values(toInsert);
@@ -57,7 +83,7 @@ export async function insertReferral(id: string, code: string)
         eq(referrals.referralCode, code),
     ));
 
-    return { message: "success" };
+    return "Success!";
     
     // try
     // {
