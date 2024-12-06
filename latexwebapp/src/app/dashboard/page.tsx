@@ -25,15 +25,17 @@ export default async function Dashboard() {
             <div className="flex items-center justify-center h-screen">
                 <div className="homepage-box">
                     <div className="display-box flex flex-col gap-5 w-[500px] md:w-[850px] h-[620px]">
-                        <h1 className="homepage-header">Upload History</h1>
+                        <div className="homepage-header flex items-center">
+                        <h1>Upload History</h1>
+                        </div>
                         <div className="document-view-box items-center gap-[5px] w-9/12 md:w-10/12 h-[450px]">
                             <table className="table-auto overflow-auto w-full py-3 align-top items-center">
                                 <thead>
-                                    <tr className="h-[45px]">
+                                    <tr className="h-[45px] bg-[#f8f8ff] border-b-2 border-[#B0B8C6]">
                                         {columns.map((column) => (
                                             <th
                                                 key={column}
-                                                className="pl-6 py-2 border-b-2 text-left bg-[#D6DCE6]"
+                                                className="pl-6 py-2 text-left text-gray-800"
                                             >
                                                 {column}
                                             </th>
@@ -46,7 +48,9 @@ export default async function Dashboard() {
                                             {columns.map((column) => (
                                                 <td
                                                     key={column}
-                                                    className="pl-6 py-2 border-b-2 text-left"
+                                                    className={`pl-6 py-2 border-b border-gray-300 text-left ${
+                                                    column === "imageName" ? "text-[#4A789C]" : "text-gray-600"
+                                                }`}
                                                 >
                                                     {row[column as keyof typeof row]}
                                                 </td>

@@ -1,13 +1,12 @@
 import { auth } from "./auth/NextAuth";
 import { redirect } from "next/navigation";
 import { GoogleSignInButton } from "./components/auth/GoogleSignInButton";
-import  SignUpButton  from "./components/auth/SignUpButton";
+import SignUpButton from "./components/auth/SignUpButton";
 import SignUpForFree from "./components/auth/SignUpForFree";
+import Reviews from "./components/layout/Reviews";
 import "./assets/landingpage.css";
 import Image from "next/image";
 import "./layout.tsx";
-import StepComponent from "./components/layout/StepComponent";
-import { Space_Grotesk } from "next/font/google";
 
 export default async function LandingPage() {
   const session = await auth()
@@ -15,76 +14,89 @@ export default async function LandingPage() {
   if (session) return redirect("/home");
 
   return (
-    <div className="landing-sections">
-      <div className="title-box">
-        <div>
-          <Image className="landing1" alt="landing1.1" src="/landingphoto1.1.svg" height={300} width={480} />
-        </div>
-        <div>
-          <h1 className='title-header'>Turn your handwritten math into LaTeX</h1>
-          <p className="intro-explanation">
-            PaperLeaf uses the latest AI to convert your equations from handwriting to LaTeX. 
-            It's the easiest way to get your math into a document or web page.
-          </p>
-          <div className="intro-buttons">
-            <GoogleSignInButton />
-            <SignUpForFree />
+    <div className="container">
+      <div className="landing-sections">
+        {/* Title Section */}
+        <div className="title-box">
+          <Image
+            className="landing1"
+            alt="landing1.1"
+            src="/landingphoto1.1.svg"
+            height={400}
+            width={400}
+          />
+          <div className="title-content">
+            <h1 className="title-header">Turn your handwritten math into LaTeX</h1>
+            <p className="intro-explanation">
+              PaperLeaf uses the latest AI to convert your equations from handwriting to LaTeX. It's the easiest way to get your math into a document or web page.
+            </p>
+            <div className="intro-buttons">
+              <GoogleSignInButton />
+              <SignUpForFree />
+            </div>
+          </div>
+
+          {/* How It Works Section */}
+          <div className="how-it-works">
+            <h1 className="tut-header">How it works</h1>
+            <p>
+              PaperLeaf is the fastest and most accurate way to convert your handwritten math to LaTeX. Here's how it works:
+            </p>
+            <div className="stepBoxes">
+              {[
+                {
+                  src: "/landing2.1.svg",
+                  title: "Write the equation",
+                  description: "Use your mouse, stylus, or touch screen to write the equation",
+                },
+                {
+                  src: "/landing2.2.svg",
+                  title: "Take a photo",
+                  description: "If you're using a phone or tablet, just take a photo of the writing",
+                },
+                {
+                  src: "/landing2.3.svg",
+                  title: "Upload the image",
+                  description: "If you're using a computer, you can upload an image file",
+                },
+                {
+                  src: "/landing2.4.svg",
+                  title: "Get the LaTeX",
+                  description: "PaperLeaf will convert your handwritten math to LaTeX in seconds",
+                },
+              ].map((step, index) => (
+                <div key={index} className="step-container">
+                  <Image
+                    className="step-image"
+                    src={step.src}
+                    alt={step.title}
+                    height={300}
+                    width={300}
+                  />
+                  <h1 className="step-header">{step.title}</h1>
+                  <p className="step-text">{step.description}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Reviews Section */}
+            <div className="reviews-box">
+              <h1 className="rev-header">What our users are saying</h1>
+            </div>
+            <div className="reviews-box2">
+              <Reviews />
+            </div>
+            <div className="get-started-box">
+              <h1 className="start1-text">Ready to try PaperLeaf?</h1>
+              <Image src="/Logo.svg" alt="Logo" height={80} width={80} />
+              <p>Start turning your handwritten math into LaTeX today.</p>
+              <div className="start-button">
+                <SignUpForFree />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="how-it-works">
-        <div className="tut-header">
-          <h1>How it works</h1>
-        </div>
-        <div>
-          <p>
-            PaperLeaf is the fastest and most accurate way to convert your handwritten math to LaTeX.
-          </p>
-          <p>
-            Here's how it works:
-          </p>
-        </div>
-        <div className="stepBoxes">
-          <div className="step-container">
-            <Image className="step-image" src="/landing2.1.svg" alt="landing2.1" height={300} width={300} />
-            <h1 className="step-header">Write the equation</h1>
-            <p className="step-text">Use your mouse, stylus, or touch screen to write the equation</p>
-          </div>
-          <div className="step-container">
-            <Image className="step-image" src ="/landing2.2.svg" alt="landing2.2" height={300} width ={300} />
-            <h1 className="step-header">Take a photo</h1>
-            <p className="step-text">If you're using a phone or tablet, just take a photo of the writing</p>
-          </div>
-          <div className="step-container">
-          <Image className="step-image" src="/landing2.3.svg" alt="landing2.3" height={300} width={300} />
-            <h1 className="step-header">Upload the image</h1>
-            <p className="step-text">If you're using a computer, you can upload an image file</p>
-          </div>
-          <div className="step-container">
-          <Image className="step-image" src="/landing2.4.svg" alt="landing2.4" height={300} width={300} />
-            <h1 className="step-header">Get the LaTeX</h1>
-            <p className="step-text">PaperLeaf will convert your handwritten math to LaTeX in seconds</p>
-          </div>
-        </div>
-      </div>
-      <div className="reviews-box">
-        <h1 className="rev-header">What our users are saying</h1>
-      </div>
-      <Image className="reviews-box2" src="/reviews.png" alt="reviews" height={300} width={300} />
-      <div className="get-started-box">
-        <div className="start-1">
-          <h1 className="start1-text">Ready to try PaperLeaf?</h1>
-          <Image src="/Logo.svg" alt="Logo" height={80} width={80} />
-        </div>
-        <p>Start turning your handwritten math into LaTeX today.</p>
-      </div>
-        <div className="flex items-center justify-center">
-          {" "}
-          {/* bg-gradient-to-b from-green-100 to-green-600 */}
-          <div className="start-button">
-            <SignUpForFree />
-          </div>
-        </div>
     </div>
   );
 }
