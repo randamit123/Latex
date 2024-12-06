@@ -155,12 +155,12 @@ export default function ImageUploader() {
  
   return (
     <>
-    <div className="homepage-box">
+    <div className="homepage-box w-screen overflow-y-auto">
       {isMounted &&
         (response && imageSrc ? (
-          <div className="display-box">
-            <div className="display-image-box">
-              <div className="display-title-box">
+          <div className="display-box w-full max-w-[750px]">
+          <div className="display-image-box p-8">
+            <div className="display-title-box w-full">
                 <button onClick={navBack} className="outlined-button">
                   <Image
                     className="icon"
@@ -176,7 +176,7 @@ export default function ImageUploader() {
                   <Image className="homepage2" alt="back" src="/arrow-left.svg" width={36} height={48} style={{display:"none"}}/>
                 </button>
               </div>
-              <div className="image-background">
+              <div className="image-background w-full h-full">
                 <Image
                  src={previewSrc || ""}
                  alt="Uploaded"
@@ -187,8 +187,8 @@ export default function ImageUploader() {
               </div>
             </div>
 
-            <div className="flex flex-row justify-between w-full p-8">
-              <div className="results-text-box">
+            <div className="flex flex-row justify-between w-full p-8 gap-4">
+             <div className="results-text-box w-1/2">
                 <div className="results-header px-3 py-2">
                   <span className="text-sm font-semibold text-gray-600">Editable Text</span>
                   <button
@@ -209,7 +209,7 @@ export default function ImageUploader() {
                 ></textarea>
               </div>
 
-              <div className="results-text-box">
+              <div className="results-text-box w-1/2">
                 <div className="results-header px-3 py-2">
                   <span className="text-sm font-semibold text-gray-600">Final Version</span>
                   <button
@@ -233,7 +233,7 @@ export default function ImageUploader() {
           </div>
         ) : (
           <>
-        <div className="upload-box">
+        <div className="upload-box w-7/12 max-w-[540px] max-h-[620px]">
           <div className="title-box">
             <h1 className='homepage-header'>Upload</h1>
           </div>
@@ -241,21 +241,21 @@ export default function ImageUploader() {
           {selectedFile ? (
                 <>
                   {previewSrc && (
-                    <div className="w-2/3 bg-white border border-gray-200 rounded-lg p-4 mb-4 mx-auto relative" style={{ aspectRatio: '4 / 3' }}>
+                    <div className="w-2/3 h-full bg-white border border-gray-200 rounded-lg p-4 mb-4 mx-auto relative" style={{ aspectRatio: '4 / 3' }}>
                       <Image
                         src={previewSrc}
                         alt="Preview"
-                        className="object-contain rounded-lg"
-                        width={300}
+                        className="object-contain w-full h-full rounded-lg"
+                        width={0}
                         height={0}
                       />
                     </div>
                   )}
-                  <div className="uploaded-file">
-                    <div className="uploaded-header">
+                  <div className="uploaded-file w-11/12">
+                    <div className="uploaded-header py-3">
                       <p>Uploaded</p>
                     </div>
-                  <div className="file-item">
+                    <div className="file-item w-full">
                     <p>{selectedFile.name}</p>
                     <button onClick={removeFile}>
                       <Image
@@ -271,8 +271,8 @@ export default function ImageUploader() {
               </>
             ) : (
               <>
-                <div className="drag-file h-96" onDragOver={dragOverHandler} onDrop={dropHandler}>
-                  <div className="flex justify-center align-center py-6">
+                <div className="drag-file h-96 w-10/12" onDragOver={dragOverHandler} onDrop={dropHandler}>
+                <div className="flex justify-center align-center py-6">
                     <Image alt="homepage1" src="/Upload_icon.svg" height={60} width={59} />
                   </div>
                   <div>
