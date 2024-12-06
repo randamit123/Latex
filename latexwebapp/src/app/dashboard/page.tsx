@@ -23,13 +23,13 @@ export default async function Dashboard() {
     return (
         <div>
             <div className="flex items-center justify-center h-screen">
-                <div className="homepage-box">
+                <div className="homepage-box h-screen w-screen">
                     <div className="display-box flex flex-col gap-5 w-[500px] md:w-[850px] h-[620px]">
                         <div className="homepage-header flex items-center">
                         <h1>Upload History</h1>
                         </div>
                         <div className="document-view-box items-center gap-[5px] w-9/12 md:w-10/12 h-[450px]">
-                            <table className="table-auto overflow-auto w-full py-3 align-top items-center">
+                            <table className="table-auto overflow-scroll w-full py-3 align-top items-center">
                                 <thead>
                                     <tr className="h-[45px] bg-[#f8f8ff] border-b-2 border-[#B0B8C6]">
                                         {columns.map((column) => (

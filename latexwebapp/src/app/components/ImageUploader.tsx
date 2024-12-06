@@ -169,7 +169,7 @@ export default function ImageUploader() {
                     width={20}
                     height={25}
                   />
-                  <span className="button-text">Back</span>
+                  <span className="button-text text-gray-600">Back</span>
                 </button>
                 <p className="homepage-header">Your Results</p>
                 <button onClick={navBack}>

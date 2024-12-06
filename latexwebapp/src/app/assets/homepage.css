@@ -18,15 +18,20 @@
   padding-top: 65px;
 }
 
-.upload-box {
-  @apply flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md p-4 gap-4;
-}
-
-.display-box{
+.upload-box{
   display: flex;
   flex-direction: column;
-  width: 850px;
-  height: 620px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  justify-content: top;
+  align-items: center;
+  gap: 25px;
+  padding: 25px;
+  text-align: center;
+  background-color: white;
+ }
+
+.display-box{
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   justify-content: top;
@@ -39,8 +44,6 @@
 .display-image-box{
   display: flex;
   flex-direction: column;
-  width: 850px;
-  height: 325px;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -51,7 +54,6 @@
 .display-title-box{
   display: flex;
   flex-direction: row;
-  width: 850px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -62,9 +64,7 @@
 }
 
 .image-background{
-  width: 786px;
   margin: auto;
-  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,7 +76,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 25px;
 } 
 
 .homepage-header{
@@ -85,7 +84,6 @@
 }
 
 .drag-file{
-  width: 445px;
   max-height: 427px;
   display: flex;
   flex-direction: column;
@@ -111,9 +109,6 @@
 
 
 .uploaded-file{
-  width: 445px;
-  height: 175px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -130,7 +125,6 @@
 }
 
 .file-item{
-  width: 445px;
   height: 36px;
   display: flex;
   flex-direction: row;
@@ -146,7 +140,6 @@
 .results-text-box{
   display:flex;
   flex-direction:column;
-  width: 375px;
   border-radius: 4px;
   border-width:1px;
   background-color: #E8EDF5;
@@ -165,7 +158,7 @@
 .outlined-button {
   display: flex; /* Ensures icon and text are on the same line */
   align-items: center; /* Vertically aligns items */
-  border: 2px solid #000; /* Outlined border */
+  border: 1px solid #e3e3e3; /* Outlined border */
   padding: 5px 10px; /* Adds spacing around content */
   border-radius: 5px; /* Rounds corners */
   background-color: transparent; /* No background */
@@ -183,7 +176,6 @@
 
 
 .document-view-box{
-  width: 750px;
   height: 400px;
   display: flex;
   flex-direction: column;
