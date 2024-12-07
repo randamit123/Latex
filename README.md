@@ -29,7 +29,7 @@
 
 - **Referral-Based LaTeX Conversions:**  
   - Each user gets 10 free LaTeX conversions initially.  
-  - Each successful referral grants an additional 10 LaTeX conversions.  
+  - Each user must successfully reffer another user to be granted an unlimited amount of LaTeX conversions.  
 
 ---
 
